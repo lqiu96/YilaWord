@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">YilaWord</string>
+
+    <string name="yourWord">Can you figure out this word…</string>
+    <string name="enterAnswer">Unscramble the word…</string>
+    <string name="correct">Correct!</string>
+    <string name="incorrect">Incorrect. Try Again.</string>
+    <string name="empty">Empty</string>
+    <string name="noWords">No more words left</string>
+    <string name="noWordsGiveScore" formatted="false">No more words left.%nYou scored a %2$d / %2$d</string>
+    <string name="restart">Restart</string>
+    <string name="giveUp">Give up</string>
+    <string name="moreInfo">More Info</string>
+    <string name="reveal">Reveal</string>
+    <string name="Ok">OK</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="signIn">Sign In</string>
+    <string name="games">Games</string>
+    <string name="review">Review</string>
+    <string name="dailyList">Daily List</string>
+    <string name="known">Known</string>
+    <string name="userid">User Id</string>
+    <string name="submit">Submit</string>
+    <string name="password">Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="forgotLogin">Forgot Username or Password?</string>
+    <string name="enterPhoneNumber">Enter Phone Number</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="usernameRequirements">6–20 Characters</string>
+    <string name="passwordRequirements">8–22 Characters</string>
+    <string name="cellPhoneNumber">Cell Phone Number</string>
+    <string name="emailAddress">Email Address</string>
+    <string name="register">Register</string>
+    <string name="readInDictionary">Read more online</string>
+    <string name="recover">Recover</string>
+    <string name="loginError">Login Error</string>
+    <string name="registrationError">Registration Error</string>
+    <string name="signOut">Sign Out</string>
+    <string name="confirmSignOut">Are you sure you want to sign out?</string>
+    <string name="noAnswer">No answer entered</string>
+    <string name="noReviewWords">No Words to Review</string>
+    <string name="spellingGames">Spelling Games</string>
+    <string name="figureWordOut">Can you figure the word out?</string>
+    <string name="exit">Exit</string>
+    <string name="timeIsUp">Time\'s up</string>
+    <string name="guessWord">Guess Word</string>
+    <string name="findWordInfo" formatted="false">Given the definition, try to guess the word.%nYou
+        have 15 seconds initially.%nCorrect answers add 5 seconds.%nIncorrect answers subtract 3 seconds.
+    </string>
+    <string name="tryAgain">Try again?</string>
+    <string name="pref_num_words_title">Number words</string>
+    <string name="pref_limit_num_words_title">Limit word</string>
+    <string name="pref_limit_num_words_summary">Limit the amount of words you see daily</string>
+    <string name="chooseNumWords">Choose number of daily words</string>
+    <string name="numbersWords">Number of words</string>
+
+    <string-array name="dictionaries">
+        <item>Vocabulary</item>
+        <item>Free Dictionary</item>
+        <item>Merriam-Webster</item>
+        <item>Reference Dictionary</item>
+    </string-array>
+
+    <plurals name="numberMeaningsSet">
+        <item quantity="one">1 meaning set</item>
+        <item quantity="other">%2d meanings set</item>
+    </plurals>
+
+    <string-array name="games">
+        <item>Scrambled Word</item>
+        <item>What is the word?</item>
+    </string-array>
+
+    <string-array name="numWords">
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+</resources>

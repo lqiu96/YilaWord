@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/mainActivityToolbar"
+            android:layout_height="?actionBarSize"
+            android:layout_width="match_parent"
+            android:background="@color/toolBarBackground"
+            android:gravity="center|fill_horizontal"
+            app:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
+
+    <FrameLayout
+            android:id="@+id/wordDisplayContainer"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"/>
+
+</LinearLayout>

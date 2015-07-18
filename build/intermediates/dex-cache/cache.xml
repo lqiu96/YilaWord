@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
+        <dex dex="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\pre-dexed\debug\classes-bda3fd4717e6459bc46970daa8d6de5794929c9e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-13cd55a75daed57d3a0a95733ac298ce2a3ea9c9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Lawrence\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\pre-dexed\debug\gson-2.3.1-d1c41b0e4188e925607562cf366c6c79fee8ac74.jar" />
+    </item>
+    <item
+        jar="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\pre-dexed\debug\classes-a8e26869bc50d72fea0f708ff3282457146d692a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\pre-dexed\debug\classes-7effb541204d7beafed1740bfd8f996bed3b0fcd.jar" />
+    </item>
+    <item
+        jar="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\pre-dexed\debug\classes-c472a4126e6b37941def0d5aa97710cdec345652.jar" />
+    </item>
+    <item
+        jar="C:\Users\Lawrence\.gradle\caches\modules-2\files-2.1\com.loopj.android\android-async-http\1.4.7\cd78109020f9ec803ef4e652c17ee4615b03e20a\android-async-http-1.4.7.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="cd78109020f9ec803ef4e652c17ee4615b03e20a">
+        <dex dex="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\pre-dexed\debug\android-async-http-1.4.7-61debdf9d56977638984c1029ab1771d44bfa3ef.jar" />
+    </item>
+    <item
+        jar="C:\Users\Lawrence\android-sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\Lawrence\IdeaProjects\Android\YilaWord\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-b15149d734957c4445adf5a421d14f33d40b5cb4.jar" />
+    </item>
+
+</items>

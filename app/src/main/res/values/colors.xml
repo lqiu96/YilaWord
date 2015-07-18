@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="toolBarBackground">#2196F3</color>
+    <color name="ColorPrimary">#e62117</color>
+    <color name="ColorPrimaryDark">#c31c13</color>
+    <color name="tabsScrollColor">#8a140e</color>
+
+    <color name="almostOut">#b71c1c</color>
+    <color name="halfWay">#ff9800</color>
+    <color name="fine">#689f38</color>
+
+    <color name="refreshOne">#212121</color>
+    <color name="refreshTwo">#e65100</color>
+    <color name="refreshThree">#00bfa5</color>
+    <color name="refreshFour">#2962ff</color>
+    <color name="refreshFive">#4a148c</color>
+
+    <color name="switchOff">#616161</color>
+    <color name="switchOn">#1565c0</color>
+</resources>

@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              tools:context=".MainActivity">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/wordsSwipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/vocabWordsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            style="?android:buttonBarStyle">
+
+        <Switch
+                android:id="@+id/knownWordSwitch"
+                android:showText="true"
+                android:textOff="@string/dailyList"
+                android:textOn="@string/known"
+                android:gravity="center|fill_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textColor="@color/black"/>
+        <Button
+                android:id="@+id/gamesButton"
+                android:text="@string/games"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center|end"
+                style="?android:buttonBarButtonStyle"/>
+
+        <Button
+                android:id="@+id/reviewButton"
+                android:text="@string/review"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:buttonBarButtonStyle"/>
+    </LinearLayout>
+
+</LinearLayout>
