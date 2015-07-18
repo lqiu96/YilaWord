@@ -484,6 +484,11 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
         return words;
     }
 
+    /**
+     * Callback method- Gets the position which the user selected to see the vocab word definition
+     *
+     * @param position Position selected on the vocab word
+     */
     @Override
     public void itemSelected(int position) {
         this.position = position;
@@ -495,6 +500,13 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
         }
     }
 
+    /**
+     * Callback method- Sets the word (based on the position) to either be known or not
+     * Because of differences in position, position is based on whether it was it was a knownWord
+     * or DailyWords list.
+     *
+     * @param known If word is selected to be known or not
+     */
     @Override
     public void isKnownWord(boolean known) {
         Log.i("Is known", String.valueOf(known));

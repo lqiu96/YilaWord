@@ -23,11 +23,10 @@ import java.util.Collections;
  * Created by Lawrence on 6/11/2015.
  */
 public class ScrambledWordFragment extends Fragment {
-    private VocabWord[] vocabWords;
     protected ArrayList<VocabWord> remainingWords;
     protected String scrambledAnswer;
-
     protected ProgressBar wordProgress;
+    private VocabWord[] vocabWords;
     private TextView scrambledWord;
     private TextView scrambledWordDefinition;
     private EditText enteredWord;
@@ -99,8 +98,7 @@ public class ScrambledWordFragment extends Fragment {
             scrambledWord.setText(savedInstanceState.getString("currentWord"));
             scrambledWordDefinition.setText(savedInstanceState.getString("currentDefinition"));
             wordProgress.setProgress(savedInstanceState.getInt("progress"));
-        }
-        else {
+        } else {
             numberCorrectAnswers = 0;
             setUpWord();
         }
@@ -117,11 +115,11 @@ public class ScrambledWordFragment extends Fragment {
 
     /**
      * Checks to see that there are still words for the user to unscramble
-     *
+     * <p/>
      * Randomly picks a Vocabword from the list of available vocabwords
-     *  1. Displays the scrambled word
-     *  2. Set the answer
-     *  3. Display all the meanings that the vocabword has
+     * 1. Displays the scrambled word
+     * 2. Set the answer
+     * 3. Display all the meanings that the vocabword has
      */
     protected void setUpWord() {
         if (remainingWords.isEmpty()) {
@@ -146,9 +144,9 @@ public class ScrambledWordFragment extends Fragment {
 
     /**
      * Scrambles the word based on the Fisher-Yates shuffle algorithm
-     *  => For each element (excluding the first and last elements), it will randomly pick an element
-     *     to swap with the current index
-     *     Wikipedia: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+     * => For each element (excluding the first and last elements), it will randomly pick an element
+     * to swap with the current index
+     * Wikipedia: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
      *
      * @param scrambledAnswer Word to shuffle
      * @return String of the scrambled word (not guaranteed for for each index to hold a completely different letter)
@@ -169,7 +167,6 @@ public class ScrambledWordFragment extends Fragment {
      * If the user cancels the dialog, the screen displays that there are no wordsList and disables the button
      * If the user restarts the dialog, all the wordsList and definition are recreated and loaded back into the hashmap
      * -Progress is set to 0 and game must set up again
-     *
      */
     private void noWordsLeft() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -218,6 +215,13 @@ public class ScrambledWordFragment extends Fragment {
 
     }
 
+    /**
+     * Sets the list of vocabwords to be used in the game
+     * Creates an arraylist of remainingWords, which (for now, is vocabWords).
+     * -Is arrayList so words can easily be removed
+     *
+     * @param vocabWords
+     */
     public void setVocabWords(VocabWord[] vocabWords) {
         this.vocabWords = vocabWords;
         this.numberQuestions = this.vocabWords.length;

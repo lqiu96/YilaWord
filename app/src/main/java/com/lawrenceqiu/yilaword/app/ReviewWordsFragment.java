@@ -1,4 +1,4 @@
-package com.lawrenceqiu.yilaword.app.reviewwords;
+package com.lawrenceqiu.yilaword.app;
 
 import android.app.AlertDialog;
 import android.app.Fragment;

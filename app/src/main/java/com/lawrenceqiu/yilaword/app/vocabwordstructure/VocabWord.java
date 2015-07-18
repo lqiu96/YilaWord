@@ -60,4 +60,20 @@ public class VocabWord implements Serializable {
     public void setKnownWord(boolean knownWord) {
         this.isKnownWord = knownWord;
     }
+
+    /*
+    - No need for these getter methods yet
+
+    public int getWordID() {
+        return wordID;
+    }
+
+    public int getWordLevel() {
+        return wordLevel;
+    }
+
+    public ArrayList<WordTag> getWordTag() {
+        return wordTag;
+    }
+    */
 }

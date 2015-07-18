@@ -41,26 +41,33 @@ public class LoginFragment extends Fragment {
         public void onClick(View v) {
             final String userID = enterUserID.getText().toString();
             String password = enterPassword.getText().toString();
-            StringBuilder builder = new StringBuilder();
+            String error = "";
+//            StringBuilder builder = new StringBuilder();
             if (userID.length() == 0 || userID.length() < 6 || userID.length() > 20
                     || password.length() == 0 || password.length() < 6 || password.length() > 22) {
                 LoginRegisterErrorDialogFragment fragment = new LoginRegisterErrorDialogFragment();
                 Bundle bundle = new Bundle();
                 if (userID.length() == 0) {
-                    builder.append("Please enter a userID\n");
+                    error += "Please enter a userID\n";
+//                    builder.append("Please enter a userID\n");
                 } else if (userID.length() < 6) {
-                    builder.append("userID must be at least 6 characters\n");
+                    error += "userId must be at least 6 characters\n";
+//                    builder.append("userID must be at least 6 characters\n");
                 } else {
-                    builder.append("userID can't be more than 20 characters\n");
+                    error += "userId can't be more than 20 characters\n";
+//                    builder.append("userID can't be more than 20 characters\n");
                 }
                 if (password.length() == 0) {
-                    builder.append("Please enter a password\n");
+                    error += "Please enter a password\n";
+//                    builder.append("Please enter a password\n");
                 } else if (password.length() < 6) {
-                    builder.append("Password must be at least 6 characters\n");
+                    error += "Password must be atleast 6 characters\n";
+//                    builder.append("Password must be at least 6 characters\n");
                 } else {
-                    builder.append("Password can't be more than 22 characters\n");
+                    error += "Password can't be more than 22 characters\n";
+//                    builder.append("Password can't be more than 22 characters\n");
                 }
-                bundle.putString("error", builder.toString());
+                bundle.putString("error", error);
                 bundle.putString("title", getString(R.string.loginError));
                 fragment.setArguments(bundle);
                 fragment.show(getActivity().getFragmentManager(), "error_message");
@@ -79,7 +86,7 @@ public class LoginFragment extends Fragment {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(Constants.PREFERENCE_LOGIN, true);
                         editor.apply();
-                        cancel.performClick();
+                        getActivity().finish();     //Exit the activity
                     } else {
                         String error = responseObject.get("error_msg").getAsString();
                         Bundle bundle = new Bundle();

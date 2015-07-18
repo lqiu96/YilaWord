@@ -15,8 +15,10 @@ public class LoginRegisterErrorDialogFragment extends DialogFragment {
 
     /**
      * Display a DialogFragment which gets the title and the error message
+     * -TODO: Consider removing this and placing individual alert dialogs in Login and Register Fragments
+     *
      * @param savedInstanceState Bundle of data
-     * @return Dialog
+     * @return Dialog to be displayed
      */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

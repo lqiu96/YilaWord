@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -30,10 +29,10 @@ import java.util.ArrayList;
  * -Disabling screen rotation is not the solution. Must come back to fix this
  */
 public class FindWordFragment extends Fragment {
-    public static final int INITIAL_COUNTDOWN_TIME_MS = 15000;  //15 seconds initially
-    public static final int COUNTDOWN_INTERVAL = 1000;          //1 second interval
-    public static final int COUNTDOWN_CORRECT_ANSWER = 5000;    //Correct answer adds 5 seconds
-    public static final int COUNTDOWN_INCORRECT_ANSWER = 3000;  //Incorrect answer subtracts 3 seconds
+    public final int INITIAL_COUNTDOWN_TIME_MS = 15000;    //15 seconds initially
+    public final int COUNTDOWN_INTERVAL = 1000;     //1 second interval
+    public final int COUNTDOWN_CORRECT_ANSWER = 5000;     //Correct answer adds 5 seconds
+    public final int COUNTDOWN_INCORRECT_ANSWER = 3000;     //Incorrect answer subtracts 3 seconds
     private long millisecondsLeft;
 
     private ArrayList<VocabWord> vocabWords;
@@ -78,7 +77,7 @@ public class FindWordFragment extends Fragment {
         public boolean onLongClick(View v) {
             TextView view = (TextView) v;
             final String word = (String) view.getText();
-            AlertDialog.Builder builder = new  AlertDialog.Builder(getActivity())
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.readInDictionary)
                     .setItems(R.array.dictionaries, new DialogInterface.OnClickListener() {
                         @Override
@@ -124,6 +123,7 @@ public class FindWordFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //Each of these buttons gets the ability for the user long press and get more info
         firstButton.setOnClickListener(handleClickButtonListener);
         firstButton.setOnLongClickListener(handleLongClickButtonListener);
         secondButton.setOnClickListener(handleClickButtonListener);
@@ -187,6 +187,7 @@ public class FindWordFragment extends Fragment {
                 millisecondsLeft = millisUntilFinished;     //Key track of the milliseconds left
                 int secondsLeft = (int) (millisUntilFinished / COUNTDOWN_INTERVAL);
                 timeLeft.setText(String.valueOf(secondsLeft));
+                //Based on the time left, the timer displays the time in different colors
                 if (secondsLeft > 10) {
                     timeLeft.setTextColor(getResources().getColor(R.color.fine));
                 } else if (secondsLeft > 5) {
@@ -296,7 +297,8 @@ public class FindWordFragment extends Fragment {
     /**
      * Loads the options for the meaning of the words. Sets the correct answer
      * and as long as the button is not the correct one, it gets a random word
-     *  @param word     Of the word in the actual arraylist
+     *
+     * @param word      Of the word in the actual arraylist
      * @param buttonNum Button in which the correct answer is going
      */
     private void loadWordOptions(VocabWord word, int buttonNum) {

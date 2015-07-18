@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.lawrenceqiu.yilaword.app.R;
-import com.lawrenceqiu.yilaword.app.reviewwords.ReviewWordsFragment;
+import com.lawrenceqiu.yilaword.app.ReviewWordsFragment;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
 
 import java.util.List;
