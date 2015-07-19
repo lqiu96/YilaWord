@@ -29,6 +29,7 @@ import java.util.ArrayList;
  * -Disabling screen rotation is not the solution. Must come back to fix this
  */
 public class FindWordFragment extends Fragment {
+    //TODO: Fix the issue where multiple timers could be initialized when button is pressed to fast
     public final int INITIAL_COUNTDOWN_TIME_MS = 15000;    //15 seconds initially
     public final int COUNTDOWN_INTERVAL = 1000;     //1 second interval
     public final int COUNTDOWN_CORRECT_ANSWER = 5000;     //Correct answer adds 5 seconds

@@ -20,6 +20,9 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
     private List<VocabWord> mWordsList;
     private VocabWordAdapterCallback mCallback;
 
+    /**
+     * Call back to get the position selected from the RecyclerView
+     */
     public interface VocabWordAdapterCallback {
         void itemSelected(int position);
     }
@@ -90,7 +93,12 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
     public void onBindViewHolder(WordHolder holder, int position) {
         VocabWord word = mWordsList.get(position);        //Based on the position on the RecycleView the user pressed
         holder.wordName.setText(word.getWord());
-        holder.partOfSpeech.setText(word.getPartOfSpeech());
+        String speech = word.getPartOfSpeech();
+        if (speech.length() >= 15) {
+            speech = speech.substring(0, 13) + "..";
+        }
+        holder.partOfSpeech.setText(speech);
+//        holder.partOfSpeech.setText(word.getPartOfSpeech());
         int numberDefinitions = word.getNumberMeanings();
         //Based on a pluraity String. Based on the input value, it gives back a certain string
         holder.numberDefinitions.setText(mActivity.getResources().getQuantityString(R.plurals.numberMeaningsSet,

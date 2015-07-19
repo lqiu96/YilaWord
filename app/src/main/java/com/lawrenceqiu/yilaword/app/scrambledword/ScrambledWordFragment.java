@@ -23,6 +23,7 @@ import java.util.Collections;
  * Created by Lawrence on 6/11/2015.
  */
 public class ScrambledWordFragment extends Fragment {
+    //TODO: Fix where pressing 'give up' or 'more information' counts as being correct
     protected ArrayList<VocabWord> remainingWords;
     protected String scrambledAnswer;
     protected ProgressBar wordProgress;

@@ -1,6 +1,8 @@
 package com.lawrenceqiu.yilaword.app.registerlogin;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,8 +46,6 @@ public class LoginFragment extends Fragment {
             String error = "";
             if (userID.length() == 0 || userID.length() < 6 || userID.length() > 20
                     || password.length() == 0 || password.length() < 6 || password.length() > 22) {
-                LoginRegisterErrorDialogFragment fragment = new LoginRegisterErrorDialogFragment();
-                Bundle bundle = new Bundle();
                 if (userID.length() == 0) {
                     error += "Please enter a userID\n";
                 } else if (userID.length() < 6) {
@@ -60,10 +60,17 @@ public class LoginFragment extends Fragment {
                 } else {
                     error += "Password can't be more than 22 characters\n";
                 }
-                bundle.putString("error", error);
-                bundle.putString("title", getString(R.string.loginError));
-                fragment.setArguments(bundle);
-                fragment.show(getActivity().getFragmentManager(), "error_message");
+                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(getString(R.string.loginError))
+                        .setMessage(error)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
                 return;
             }
             AsyncHttpClient client = new AsyncHttpClient();
@@ -82,12 +89,17 @@ public class LoginFragment extends Fragment {
                         getActivity().finish();     //Exit the activity
                     } else {
                         String error = responseObject.get("error_msg").getAsString();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("error", error);
-                        bundle.putString("title", getString(R.string.loginError));
-                        LoginRegisterErrorDialogFragment dialogFragment = new LoginRegisterErrorDialogFragment();
-                        dialogFragment.setArguments(bundle);
-                        dialogFragment.show(getActivity().getFragmentManager(), "error_message");
+                        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                                .setTitle(getString(R.string.loginError))
+                                .setMessage(error)
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).create();
+                        dialog.show();
                     }
                 }
 

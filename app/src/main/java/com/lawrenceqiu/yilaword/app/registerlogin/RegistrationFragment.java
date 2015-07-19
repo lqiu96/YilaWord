@@ -1,6 +1,8 @@
 package com.lawrenceqiu.yilaword.app.registerlogin;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -51,7 +53,7 @@ public class RegistrationFragment extends Fragment {
             String password = enterPassword.getText().toString();
             String cellPhoneNumber = enterCellPhoneNumber.getText().toString();
             String emailAddress = enterEmailAddress.getText().toString();
-            String error = "Please enter your: ";
+            String error = "Please enter your:\n";
             if (firstName.length() == 0 || lastName.length() == 0 || userId.length() == 0
                     || password.length() == 0 || cellPhoneNumber.length() == 0 || emailAddress.length() == 0) {
                 if (firstName.length() == 0) {
@@ -72,12 +74,17 @@ public class RegistrationFragment extends Fragment {
                 if (emailAddress.length() == 0) {
                     error += "Email Address\n";
                 }
-                LoginRegisterErrorDialogFragment fragment = new LoginRegisterErrorDialogFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("error", error);
-                bundle.putString("title", getString(R.string.registrationError));
-                fragment.setArguments(bundle);
-                fragment.show(getActivity().getFragmentManager(), "error");
+                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(getString(R.string.registrationError))
+                        .setMessage(error)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
                 return;
             }
             AsyncHttpClient client = new AsyncHttpClient();
@@ -118,12 +125,17 @@ public class RegistrationFragment extends Fragment {
                             }
                         });
             } else {
-                LoginRegisterErrorDialogFragment fragment = new LoginRegisterErrorDialogFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("title", getString(R.string.registrationError));
-                bundle.putString("error", userId + " has already been taken by someone else");
-                fragment.setArguments(bundle);
-                fragment.show(getActivity().getFragmentManager(), "error_message");
+                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(getString(R.string.registrationError))
+                        .setMessage(userId + " has already been taken by someone else")
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
             }
         }
     };
