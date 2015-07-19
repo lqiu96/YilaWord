@@ -33,19 +33,19 @@ public class FindWordFragment extends Fragment {
     public final int COUNTDOWN_INTERVAL = 1000;     //1 second interval
     public final int COUNTDOWN_CORRECT_ANSWER = 5000;     //Correct answer adds 5 seconds
     public final int COUNTDOWN_INCORRECT_ANSWER = 3000;     //Incorrect answer subtracts 3 seconds
-    private long millisecondsLeft;
+    private long mMillisecondsLeft;
 
-    private ArrayList<VocabWord> vocabWords;
-    private ArrayList<VocabWord> wordOptions;
-    private String correctAnswer;
-    private CountDownTimer timer;
+    private ArrayList<VocabWord> mVocabWords;
+    private ArrayList<VocabWord> mWordOptions;
+    private String mCorrectAnswer;
+    private CountDownTimer mTimer;
 
-    private TextView meaningDisplay;
-    private TextView timeLeft;
-    private Button firstButton;
-    private Button secondButton;
-    private Button thirdButton;
-    private Button fourthButton;
+    private TextView mMeaningDisplay;
+    private TextView mTimeLeft;
+    private Button mFirstButton;
+    private Button mSecondButton;
+    private Button mThirdButton;
+    private Button mFourthButton;
     /**
      * Every time a button is clicked, cancel the timer so a new one can be set up
      * -Correct answer, create a new timer with time + 3 seconds
@@ -55,17 +55,17 @@ public class FindWordFragment extends Fragment {
     private View.OnClickListener handleClickButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            timer.cancel();                 //Cancel timer
+            mTimer.cancel();                 //Cancel mTimer
             TextView view = (TextView) v;   //Cast to get the text
-            if (view.getText().toString().equals(correctAnswer)) {
+            if (view.getText().toString().equals(mCorrectAnswer)) {
                 Toast.makeText(getActivity(), R.string.correct, Toast.LENGTH_SHORT).show();
-                setUpTimer(millisecondsLeft + COUNTDOWN_CORRECT_ANSWER);    //Add bonus for correct answer
+                setUpTimer(mMillisecondsLeft + COUNTDOWN_CORRECT_ANSWER);    //Add bonus for correct answer
             } else {
                 Toast.makeText(getActivity(), R.string.incorrect, Toast.LENGTH_SHORT).show();
-                setUpTimer(millisecondsLeft - COUNTDOWN_INCORRECT_ANSWER);  //Subtract for incorrect answer
+                setUpTimer(mMillisecondsLeft - COUNTDOWN_INCORRECT_ANSWER);  //Subtract for incorrect answer
             }
             loadMeaning(); //Move to next word
-            timer.start();
+            mTimer.start();
         }
     };
     /**
@@ -111,12 +111,12 @@ public class FindWordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fagment_find_word, null);
-        meaningDisplay = (TextView) view.findViewById(R.id.meaningDisplay);
-        timeLeft = (TextView) view.findViewById(R.id.timeLeft);
-        firstButton = (Button) view.findViewById(R.id.wordButton1);
-        secondButton = (Button) view.findViewById(R.id.wordButton2);
-        thirdButton = (Button) view.findViewById(R.id.wordButton3);
-        fourthButton = (Button) view.findViewById(R.id.wordButton4);
+        mMeaningDisplay = (TextView) view.findViewById(R.id.meaningDisplay);
+        mTimeLeft = (TextView) view.findViewById(R.id.timeLeft);
+        mFirstButton = (Button) view.findViewById(R.id.wordButton1);
+        mSecondButton = (Button) view.findViewById(R.id.wordButton2);
+        mThirdButton = (Button) view.findViewById(R.id.wordButton3);
+        mFourthButton = (Button) view.findViewById(R.id.wordButton4);
         return view;
     }
 
@@ -124,14 +124,14 @@ public class FindWordFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //Each of these buttons gets the ability for the user long press and get more info
-        firstButton.setOnClickListener(handleClickButtonListener);
-        firstButton.setOnLongClickListener(handleLongClickButtonListener);
-        secondButton.setOnClickListener(handleClickButtonListener);
-        secondButton.setOnLongClickListener(handleLongClickButtonListener);
-        thirdButton.setOnClickListener(handleClickButtonListener);
-        thirdButton.setOnLongClickListener(handleLongClickButtonListener);
-        fourthButton.setOnClickListener(handleClickButtonListener);
-        fourthButton.setOnLongClickListener(handleLongClickButtonListener);
+        mFirstButton.setOnClickListener(handleClickButtonListener);
+        mFirstButton.setOnLongClickListener(handleLongClickButtonListener);
+        mSecondButton.setOnClickListener(handleClickButtonListener);
+        mSecondButton.setOnLongClickListener(handleLongClickButtonListener);
+        mThirdButton.setOnClickListener(handleClickButtonListener);
+        mThirdButton.setOnLongClickListener(handleLongClickButtonListener);
+        mFourthButton.setOnClickListener(handleClickButtonListener);
+        mFourthButton.setOnLongClickListener(handleLongClickButtonListener);
         loadMeaning();
         setUpTimer(INITIAL_COUNTDOWN_TIME_MS);
     }
@@ -159,7 +159,7 @@ public class FindWordFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        timer.start();
+                        mTimer.start();
                     }
                 });
         builder.create().show();
@@ -168,40 +168,40 @@ public class FindWordFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (timer != null) {
-            timer.cancel();
+        if (mTimer != null) {
+            mTimer.cancel();
         }
     }
 
     /**
-     * Create a new timer with the initial time and initial countdown interval
+     * Create a new mTimer with the initial time and initial countdown interval
      * - (15 sec initial, 1 sec initial)
      *
      * @param initialCountdownTimeMs Number of milliseconds to start with
      */
     private void setUpTimer(long initialCountdownTimeMs) {
-        timer = new CountDownTimer(initialCountdownTimeMs, COUNTDOWN_INTERVAL) {
+        mTimer = new CountDownTimer(initialCountdownTimeMs, COUNTDOWN_INTERVAL) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                millisecondsLeft = millisUntilFinished;     //Key track of the milliseconds left
+                mMillisecondsLeft = millisUntilFinished;     //Key track of the milliseconds left
                 int secondsLeft = (int) (millisUntilFinished / COUNTDOWN_INTERVAL);
-                timeLeft.setText(String.valueOf(secondsLeft));
-                //Based on the time left, the timer displays the time in different colors
+                mTimeLeft.setText(String.valueOf(secondsLeft));
+                //Based on the time left, the mTimer displays the time in different colors
                 if (secondsLeft > 10) {
-                    timeLeft.setTextColor(getResources().getColor(R.color.fine));
+                    mTimeLeft.setTextColor(getResources().getColor(R.color.fine));
                 } else if (secondsLeft > 5) {
-                    timeLeft.setTextColor(getResources().getColor(R.color.halfWay));
+                    mTimeLeft.setTextColor(getResources().getColor(R.color.halfWay));
                 } else if (secondsLeft > 0) {
-                    timeLeft.setTextColor(getResources().getColor(R.color.almostOut));
+                    mTimeLeft.setTextColor(getResources().getColor(R.color.almostOut));
                 } else {
-                    timeLeft.setTextColor(getResources().getColor(R.color.black));
+                    mTimeLeft.setTextColor(getResources().getColor(R.color.black));
                 }
             }
 
             /**
-             * When there is no time left, whether it be timer ran out to 0 or user got incorrect answer
-             * (then timer must be manually set to 0), this method is called
+             * When there is no time left, whether it be mTimer ran out to 0 or user got incorrect answer
+             * (then mTimer must be manually set to 0), this method is called
              * <p/>
              * Displays an AlertDialog for the user to decide what to do
              * -Cancel, exit the activity
@@ -209,9 +209,9 @@ public class FindWordFragment extends Fragment {
              */
             @Override
             public void onFinish() {
-                timer.cancel();             //Cancel the timer
-                timeLeft.setText("0");      //In event seconds <= 2 and incorrect answer, it would display 0 as timeleft
-                vocabWords.clear();         //Clear vocabwords, so you can re add the orginal 10 back
+                mTimer.cancel();             //Cancel the mTimer
+                mTimeLeft.setText("0");      //In event seconds <= 2 and incorrect answer, it would display 0 as timeleft
+                mVocabWords.clear();         //Clear vocabwords, so you can re add the orginal 10 back
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.timeIsUp)
                         .setMessage(R.string.tryAgain)
@@ -226,12 +226,12 @@ public class FindWordFragment extends Fragment {
                         .setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                for (VocabWord vocabWord : wordOptions) {
-                                    vocabWords.add(vocabWord);
+                                for (VocabWord vocabWord : mWordOptions) {
+                                    mVocabWords.add(vocabWord);
                                 }
                                 setUpTimer(INITIAL_COUNTDOWN_TIME_MS);
                                 loadMeaning();
-                                timer.start();
+                                mTimer.start();
                             }
                         });
                 builder.create().show();
@@ -243,13 +243,13 @@ public class FindWordFragment extends Fragment {
      * Sets up the fragment to display the definition by search through each of the part of speeches
      */
     private void loadMeaning() {
-        if (vocabWords.isEmpty()) {
+        if (mVocabWords.isEmpty()) {
             noWordsLeft();
             return;
         }
-        int randIndex = (int) (vocabWords.size() * Math.random());
+        int randIndex = (int) (mVocabWords.size() * Math.random());
         StringBuilder builder = new StringBuilder();
-        VocabWord word = vocabWords.get(randIndex);
+        VocabWord word = mVocabWords.get(randIndex);
         ArrayList<PartOfSpeech> partOfSpeeches = word.getPartOfSpeeches();
         for (PartOfSpeech partOfSpeech : partOfSpeeches) {
             for (Meaning meaning : partOfSpeech.getMeaningsList()) {
@@ -258,7 +258,7 @@ public class FindWordFragment extends Fragment {
             }
         }
         int buttonNum = (int) (4 * Math.random()) + 1; //Goes from 1 to 4
-        meaningDisplay.setText(builder.toString());
+        mMeaningDisplay.setText(builder.toString());
         loadWordOptions(word, buttonNum);
     }
 
@@ -269,7 +269,7 @@ public class FindWordFragment extends Fragment {
      * -Otherwise, resets the screen
      */
     private void noWordsLeft() {
-        timer.cancel();
+        mTimer.cancel();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.noWords)
                 .setCancelable(false)
@@ -283,12 +283,12 @@ public class FindWordFragment extends Fragment {
                 .setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        for (VocabWord vocabWord : wordOptions) {
-                            vocabWords.add(vocabWord);
+                        for (VocabWord vocabWord : mWordOptions) {
+                            mVocabWords.add(vocabWord);
                         }
                         setUpTimer(INITIAL_COUNTDOWN_TIME_MS);
                         loadMeaning();
-                        timer.start();
+                        mTimer.start();
                     }
                 });
         builder.create().show();
@@ -303,41 +303,41 @@ public class FindWordFragment extends Fragment {
      */
     private void loadWordOptions(VocabWord word, int buttonNum) {
         ArrayList<VocabWord> options = new ArrayList<>();       //Must be a copy
-        for (VocabWord vocabWord : wordOptions) {
+        for (VocabWord vocabWord : mWordOptions) {
             options.add(vocabWord);
         }
         options.remove(word);
-        correctAnswer = word.getWord();
+        mCorrectAnswer = word.getWord();
         int randIndex;
         if (buttonNum != 1) {
             randIndex = (int) (options.size() * Math.random());
-            firstButton.setText(options.get(randIndex).getWord());
+            mFirstButton.setText(options.get(randIndex).getWord());
             options.remove(randIndex);
         } else {
-            firstButton.setText(word.getWord());
+            mFirstButton.setText(word.getWord());
         }
         if (buttonNum != 2) {
             randIndex = (int) (options.size() * Math.random());
-            secondButton.setText(options.get(randIndex).getWord());
+            mSecondButton.setText(options.get(randIndex).getWord());
             options.remove(randIndex);
         } else {
-            secondButton.setText(word.getWord());
+            mSecondButton.setText(word.getWord());
         }
         if (buttonNum != 3) {
             randIndex = (int) (options.size() * Math.random());
-            thirdButton.setText(options.get(randIndex).getWord());
+            mThirdButton.setText(options.get(randIndex).getWord());
             options.remove(randIndex);
         } else {
-            thirdButton.setText(word.getWord());
+            mThirdButton.setText(word.getWord());
         }
         if (buttonNum != 4) {
             randIndex = (int) (options.size() * Math.random());
-            fourthButton.setText(options.get(randIndex).getWord());
+            mFourthButton.setText(options.get(randIndex).getWord());
             options.remove(randIndex);
         } else {
-            fourthButton.setText(word.getWord());
+            mFourthButton.setText(word.getWord());
         }
-        vocabWords.remove(word);
+        mVocabWords.remove(word);
     }
 
     /**
@@ -346,10 +346,10 @@ public class FindWordFragment extends Fragment {
      * @param vocabWords List of VocabWords
      */
     public void setVocabWords(ArrayList<VocabWord> vocabWords) {
-        this.vocabWords = vocabWords;
-        wordOptions = new ArrayList<>();
+        this.mVocabWords = vocabWords;
+        mWordOptions = new ArrayList<>();
         for (VocabWord vocabWord : vocabWords) {
-            wordOptions.add(vocabWord);
+            mWordOptions.add(vocabWord);
         }
     }
 }

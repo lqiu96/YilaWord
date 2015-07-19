@@ -20,11 +20,11 @@ import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
 import com.lawrenceqiu.yilaword.app.wordmeaning.WordMeaningFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private MenuItem signInSignOut;
-    private SharedPreferences sharedPreferences;
-    private VocabWordDisplayFragment vocabWordDisplayFragment;
+    private MenuItem mSignInSignOut;
+    private SharedPreferences mSharedPreferences;
+    private VocabWordDisplayFragment mVocabWordDisplayFragment;
     /**
-     * Listener for any changes in sharedPreferences
+     * Listener for any changes in mSharedPreferences
      * -Changes dealing with login will change the menuItem's text to the other option
      * -"Sign In" becomes "Sign Out"
      * -"Sign Out" becomes "Sign In"
@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
                     boolean signedIn = sharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
                     if (signedIn) {
-                        signInSignOut.setTitle(R.string.signOut);
+                        mSignInSignOut.setTitle(R.string.signOut);
                     } else {
-                        signInSignOut.setTitle(R.string.signIn);
+                        mSignInSignOut.setTitle(R.string.signIn);
                     }
                     invalidateOptionsMenu(); //Refresh the menu to display the new message
                 }
@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
-        vocabWordDisplayFragment = new VocabWordDisplayFragment();
+        mVocabWordDisplayFragment = new VocabWordDisplayFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.wordDisplayContainer,
-                vocabWordDisplayFragment, "vocabWords").commit();
+                mVocabWordDisplayFragment, "vocabWords").commit();
     }
 
     /**
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        sharedPreferences = getSharedPreferences(Constants.PREFERENCE_FILE, Context.MODE_PRIVATE);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(handleSignInSignOutListener);
+        mSharedPreferences = getSharedPreferences(Constants.PREFERENCE_FILE, Context.MODE_PRIVATE);
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(handleSignInSignOutListener);
     }
 
     /**
@@ -87,12 +87,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        signInSignOut = menu.findItem(R.id.action_signInSignOut);
-        boolean signedIn = sharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
+        mSignInSignOut = menu.findItem(R.id.action_signInSignOut);
+        boolean signedIn = mSharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
         if (signedIn) {
-            signInSignOut.setTitle(R.string.signOut);
+            mSignInSignOut.setTitle(R.string.signOut);
         } else {
-            signInSignOut.setTitle(R.string.signIn);
+            mSignInSignOut.setTitle(R.string.signIn);
         }
         return true;
     }
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_signInSignOut:
-                boolean signedIn = sharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
+                boolean signedIn = mSharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
                 if (!signedIn) {    //Load intent to bring up activity for user to sign in
                     Intent intent = new Intent(MainActivity.this, RegisterLoginActivity.class);
                     startActivity(intent);
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    signInSignOut.setTitle(R.string.signOut);
+                                    mSignInSignOut.setTitle(R.string.signOut);
                                     SharedPreferences sharedPreferences = getSharedPreferences(
                                             Constants.PREFERENCE_FILE, Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void loadMeaning(VocabWord vocabWord) {
         WordMeaningFragment wordMeaningFragment = new WordMeaningFragment();
-        wordMeaningFragment.setCallback(vocabWordDisplayFragment);
+        wordMeaningFragment.setCallback(mVocabWordDisplayFragment);
         Bundle bundle = new Bundle();
         bundle.putSerializable("VocabWord", vocabWord);
         wordMeaningFragment.setArguments(bundle);

@@ -9,29 +9,29 @@ import java.util.ArrayList;
  * Created by Lawrence on 6/10/2015.
  */
 public class VocabWord implements Serializable {
-    private int wordID;
-    private String word;
-    private int wordLevel;
-    private ArrayList<WordTag> wordTag;
-    private ArrayList<PartOfSpeech> partOfSpeeches;
-    private boolean isKnownWord;
+    private int mWordID;
+    private String mWord;
+    private int mWordLevel;
+    private ArrayList<WordTag> mWordTag;
+    private ArrayList<PartOfSpeech> mPartOfSpeeches;
+    private boolean mIsKnownWord;
 
-    public VocabWord(int wordID, String word, int wordLevel, ArrayList<WordTag> wordTag, ArrayList<PartOfSpeech> partOfSpeeches) {
-        this.wordID = wordID;
-        this.word = word;
-        this.wordLevel = wordLevel;
-        this.wordTag = wordTag;
-        this.partOfSpeeches = partOfSpeeches;
-        this.isKnownWord = false;
+    public VocabWord(int mWordID, String mWord, int mWordLevel, ArrayList<WordTag> mWordTag, ArrayList<PartOfSpeech> mPartOfSpeeches) {
+        this.mWordID = mWordID;
+        this.mWord = mWord;
+        this.mWordLevel = mWordLevel;
+        this.mWordTag = mWordTag;
+        this.mPartOfSpeeches = mPartOfSpeeches;
+        this.mIsKnownWord = false;
     }
 
     public String getWord() {
-        return word;
+        return mWord;
     }
 
     public String getPartOfSpeech() {
         StringBuilder builder = new StringBuilder();
-        for (PartOfSpeech speech : partOfSpeeches) {
+        for (PartOfSpeech speech : mPartOfSpeeches) {
             builder.append(" ");
             builder.append(speech);
             builder.append(" ");
@@ -43,37 +43,37 @@ public class VocabWord implements Serializable {
 
     public int getNumberMeanings() {
         int sum = 0;
-        for (PartOfSpeech partOfSpeech : partOfSpeeches) {
+        for (PartOfSpeech partOfSpeech : mPartOfSpeeches) {
             sum += partOfSpeech.getMeaningsList().size();
         }
         return sum;
     }
 
     public ArrayList<PartOfSpeech> getPartOfSpeeches() {
-        return partOfSpeeches;
+        return mPartOfSpeeches;
     }
 
     public boolean isKnownWord() {
-        return isKnownWord;
+        return mIsKnownWord;
     }
 
     public void setKnownWord(boolean knownWord) {
-        this.isKnownWord = knownWord;
+        this.mIsKnownWord = knownWord;
     }
 
     /*
     - No need for these getter methods yet
 
     public int getWordID() {
-        return wordID;
+        return mWordID;
     }
 
     public int getWordLevel() {
-        return wordLevel;
+        return mWordLevel;
     }
 
     public ArrayList<WordTag> getWordTag() {
-        return wordTag;
+        return mWordTag;
     }
     */
 }

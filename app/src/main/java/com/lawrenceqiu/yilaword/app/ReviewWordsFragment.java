@@ -1,7 +1,6 @@
 package com.lawrenceqiu.yilaword.app;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.lawrenceqiu.yilaword.app.Constants;
-import com.lawrenceqiu.yilaword.app.R;
 import com.lawrenceqiu.yilaword.app.vocablist.MainActivity;
 import com.lawrenceqiu.yilaword.app.vocablist.VocabWordAdapter;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
@@ -29,9 +26,8 @@ import java.util.List;
  */
 public class ReviewWordsFragment extends android.support.v4.app.Fragment
         implements VocabWordAdapter.VocabWordAdapterCallback {
-    private RecyclerView recyclerView;
-    private List<VocabWord> reviewList;
-    private VocabWordAdapter wordAdapter;
+    private RecyclerView mRecyclerView;
+    private List<VocabWord> mReviewList;
 
     /**
      * Inflates the layout view and initializes the recyclerView
@@ -45,7 +41,7 @@ public class ReviewWordsFragment extends android.support.v4.app.Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_review_words, null);
-        recyclerView = (RecyclerView) view.findViewById(R.id.reviewWordsList);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.reviewWordsList);
         return view;
     }
 
@@ -57,13 +53,13 @@ public class ReviewWordsFragment extends android.support.v4.app.Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        reviewList = getReviewList();
-        wordAdapter = new VocabWordAdapter(getActivity(), reviewList, this);
-        recyclerView.setAdapter(wordAdapter);
-        recyclerView.setHasFixedSize(true);
+        mReviewList = getReviewList();
+        VocabWordAdapter wordAdapter = new VocabWordAdapter(getActivity(), mReviewList, this);
+        mRecyclerView.setAdapter(wordAdapter);
+        mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
     }
 
     /**
@@ -95,7 +91,8 @@ public class ReviewWordsFragment extends android.support.v4.app.Fragment
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                getActivity().finish();
+                                getActivity().getSupportFragmentManager().popBackStack();
+//                                getActivity().finish();
                             }
                         });
                 builder.create().show();
@@ -117,6 +114,6 @@ public class ReviewWordsFragment extends android.support.v4.app.Fragment
     @Override
     public void itemSelected(int position) {
         MainActivity activity = (MainActivity) getActivity();
-        activity.loadMeaning(reviewList.get(position));
+        activity.loadMeaning(mReviewList.get(position));
     }
 }

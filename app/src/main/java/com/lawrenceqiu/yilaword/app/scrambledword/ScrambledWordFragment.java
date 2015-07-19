@@ -26,14 +26,14 @@ public class ScrambledWordFragment extends Fragment {
     protected ArrayList<VocabWord> remainingWords;
     protected String scrambledAnswer;
     protected ProgressBar wordProgress;
-    private VocabWord[] vocabWords;
-    private TextView scrambledWord;
-    private TextView scrambledWordDefinition;
-    private EditText enteredWord;
-    private Button submitAnswer;
+    private VocabWord[] mVocabWords;
+    private TextView mScrambledWord;
+    private TextView mScrambledWordDefinition;
+    private EditText mEnteredWord;
+    private Button mSubmitAnswer;
 
-    private int numberCorrectAnswers;
-    private int numberQuestions;
+    private int mNumberCorrectAnswers;
+    private int mNumberQuestions;
 
     /**
      * Handles when the user hits either return or enter on the keyboard
@@ -43,7 +43,7 @@ public class ScrambledWordFragment extends Fragment {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                submitAnswer.performClick();
+                mSubmitAnswer.performClick();
             }
             return false;
         }
@@ -60,20 +60,20 @@ public class ScrambledWordFragment extends Fragment {
     private View.OnClickListener handleSubmitListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String answer = enteredWord.getText().toString();
+            String answer = mEnteredWord.getText().toString();
             if (answer.length() == 0) {
                 Toast.makeText(getActivity(), R.string.noAnswer, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (answer.toLowerCase().equals(scrambledAnswer.toLowerCase())) {
-                numberCorrectAnswers++;
+                mNumberCorrectAnswers++;
                 Toast.makeText(getActivity(), R.string.correct, Toast.LENGTH_SHORT).show();
                 wordProgress.setProgress(wordProgress.getProgress() + 1);
                 setUpWord();
             } else {
                 Toast.makeText(getActivity(), R.string.incorrect, Toast.LENGTH_SHORT).show();
             }
-            enteredWord.setText("");
+            mEnteredWord.setText("");
         }
     };
 
@@ -83,10 +83,10 @@ public class ScrambledWordFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scrambled_word, container, false);
         // Loads all the view from the layout
         wordProgress = (ProgressBar) view.findViewById(R.id.wordProgress);
-        scrambledWord = (TextView) view.findViewById(R.id.scrambledWord);
-        scrambledWordDefinition = (TextView) view.findViewById(R.id.scrambledWordDefinition);
-        enteredWord = (EditText) view.findViewById(R.id.userAnswer);
-        submitAnswer = (Button) view.findViewById(R.id.submitAnswer);
+        mScrambledWord = (TextView) view.findViewById(R.id.scrambledWord);
+        mScrambledWordDefinition = (TextView) view.findViewById(R.id.scrambledWordDefinition);
+        mEnteredWord = (EditText) view.findViewById(R.id.userAnswer);
+        mSubmitAnswer = (Button) view.findViewById(R.id.submitAnswer);
         return view;
     }
 
@@ -94,23 +94,23 @@ public class ScrambledWordFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
-            enteredWord.setText(savedInstanceState.getString("currentText"));
-            scrambledWord.setText(savedInstanceState.getString("currentWord"));
-            scrambledWordDefinition.setText(savedInstanceState.getString("currentDefinition"));
+            mEnteredWord.setText(savedInstanceState.getString("currentText"));
+            mScrambledWord.setText(savedInstanceState.getString("currentWord"));
+            mScrambledWordDefinition.setText(savedInstanceState.getString("currentDefinition"));
             wordProgress.setProgress(savedInstanceState.getInt("progress"));
         } else {
-            numberCorrectAnswers = 0;
+            mNumberCorrectAnswers = 0;
             setUpWord();
         }
-        wordProgress.setMax(numberQuestions);
+        wordProgress.setMax(mNumberQuestions);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         // Set up the listeners
-        enteredWord.setOnEditorActionListener(handleEditorListener);
-        submitAnswer.setOnClickListener(handleSubmitListener);
+        mEnteredWord.setOnEditorActionListener(handleEditorListener);
+        mSubmitAnswer.setOnClickListener(handleSubmitListener);
     }
 
     /**
@@ -129,15 +129,14 @@ public class ScrambledWordFragment extends Fragment {
             VocabWord word = remainingWords.get(index);
             scrambledAnswer = word.getWord();
             String scrambled = scrambleWord(scrambledAnswer);
-            scrambledWord.setText(scrambled); //Set it to scrambled word
-            StringBuilder builder = new StringBuilder();
+            mScrambledWord.setText(scrambled); //Set it to scrambled word
+            String definition = "";
             for (PartOfSpeech partOfSpeech : word.getPartOfSpeeches()) {
                 for (Meaning meaning : partOfSpeech.getMeaningsList()) {
-                    builder.append(meaning.getMeaning());
-                    builder.append("\n");
+                    definition += meaning.getMeaning() + "\n";
                 }
             }
-            scrambledWordDefinition.setText(builder.toString());
+            mScrambledWordDefinition.setText(definition);
             remainingWords.remove(index);
         }
     }
@@ -171,25 +170,25 @@ public class ScrambledWordFragment extends Fragment {
     private void noWordsLeft() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.empty)
-                .setMessage(getString(R.string.noWordsGiveScore, numberCorrectAnswers, numberQuestions))
+                .setMessage(getString(R.string.noWordsGiveScore, mNumberCorrectAnswers, mNumberQuestions))
                 .setCancelable(false)
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        scrambledWord.setText(R.string.noWords);
-                        scrambledWordDefinition.setText("");
-                        submitAnswer.setEnabled(false);
+                        mScrambledWord.setText(R.string.noWords);
+                        mScrambledWordDefinition.setText("");
+                        mSubmitAnswer.setEnabled(false);
                         dialog.dismiss();
                     }
                 })
                 .setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        numberCorrectAnswers = 0;
-                        Collections.addAll(remainingWords, vocabWords);
+                        mNumberCorrectAnswers = 0;
+                        Collections.addAll(remainingWords, mVocabWords);
                         wordProgress.setProgress(0);
-                        if (!submitAnswer.isEnabled()) {
-                            submitAnswer.setEnabled(true);
+                        if (!mSubmitAnswer.isEnabled()) {
+                            mSubmitAnswer.setEnabled(true);
                         }
                         setUpWord();
                     }
@@ -208,9 +207,9 @@ public class ScrambledWordFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("currentText", enteredWord.getText().toString());
-        outState.putString("currentWord", scrambledWord.getText().toString());
-        outState.putString("currentDefinition", scrambledWordDefinition.getText().toString());
+        outState.putString("currentText", mEnteredWord.getText().toString());
+        outState.putString("currentWord", mScrambledWord.getText().toString());
+        outState.putString("currentDefinition", mScrambledWordDefinition.getText().toString());
         outState.putInt("progress", wordProgress.getProgress());
 
     }
@@ -223,9 +222,9 @@ public class ScrambledWordFragment extends Fragment {
      * @param vocabWords
      */
     public void setVocabWords(VocabWord[] vocabWords) {
-        this.vocabWords = vocabWords;
-        this.numberQuestions = this.vocabWords.length;
-        this.remainingWords = new ArrayList<>(numberQuestions);
+        this.mVocabWords = vocabWords;
+        this.mNumberQuestions = this.mVocabWords.length;
+        this.remainingWords = new ArrayList<>(mNumberQuestions);
         Collections.addAll(this.remainingWords, vocabWords);
     }
 }

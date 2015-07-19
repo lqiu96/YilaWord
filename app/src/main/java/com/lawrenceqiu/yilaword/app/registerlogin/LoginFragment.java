@@ -42,30 +42,23 @@ public class LoginFragment extends Fragment {
             final String userID = enterUserID.getText().toString();
             String password = enterPassword.getText().toString();
             String error = "";
-//            StringBuilder builder = new StringBuilder();
             if (userID.length() == 0 || userID.length() < 6 || userID.length() > 20
                     || password.length() == 0 || password.length() < 6 || password.length() > 22) {
                 LoginRegisterErrorDialogFragment fragment = new LoginRegisterErrorDialogFragment();
                 Bundle bundle = new Bundle();
                 if (userID.length() == 0) {
                     error += "Please enter a userID\n";
-//                    builder.append("Please enter a userID\n");
                 } else if (userID.length() < 6) {
                     error += "userId must be at least 6 characters\n";
-//                    builder.append("userID must be at least 6 characters\n");
                 } else {
                     error += "userId can't be more than 20 characters\n";
-//                    builder.append("userID can't be more than 20 characters\n");
                 }
                 if (password.length() == 0) {
                     error += "Please enter a password\n";
-//                    builder.append("Please enter a password\n");
                 } else if (password.length() < 6) {
-                    error += "Password must be atleast 6 characters\n";
-//                    builder.append("Password must be at least 6 characters\n");
+                    error += "Password must be at least 6 characters\n";
                 } else {
                     error += "Password can't be more than 22 characters\n";
-//                    builder.append("Password can't be more than 22 characters\n");
                 }
                 bundle.putString("error", error);
                 bundle.putString("title", getString(R.string.loginError));
@@ -81,8 +74,8 @@ public class LoginFragment extends Fragment {
                     JsonElement element = jsonParser.parse(new String(responseBody));
                     JsonObject responseObject = element.getAsJsonObject();
                     if (responseObject.get("status").getAsBoolean()) {
-                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.PREFERENCE_FILE,
-                                Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+                                Constants.PREFERENCE_FILE, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(Constants.PREFERENCE_LOGIN, true);
                         editor.apply();

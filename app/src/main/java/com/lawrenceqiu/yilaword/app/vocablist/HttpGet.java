@@ -1,8 +1,6 @@
 package com.lawrenceqiu.yilaword.app.vocablist;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
 import com.lawrenceqiu.yilaword.app.Constants;
 
 import java.io.BufferedReader;
@@ -15,10 +13,10 @@ import java.net.URL;
  * Created by Lawrence on 6/23/2015.
  */
 public class HttpGet extends AsyncTask<Void, Void, String> {
-    private String userID;
+    private String mUserID;
 
-    public HttpGet(String userID) {
-        this.userID = userID;
+    public HttpGet(String mUserID) {
+        this.mUserID = mUserID;
     }
 
     /**
@@ -32,7 +30,7 @@ public class HttpGet extends AsyncTask<Void, Void, String> {
         HttpURLConnection connection;
         String json = null;
         try {
-            URL url = new URL(String.format(Constants.WORD_URL, userID));
+            URL url = new URL(String.format(Constants.WORD_URL, mUserID));
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();

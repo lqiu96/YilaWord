@@ -52,32 +52,25 @@ public class RegistrationFragment extends Fragment {
             String cellPhoneNumber = enterCellPhoneNumber.getText().toString();
             String emailAddress = enterEmailAddress.getText().toString();
             String error = "Please enter your: ";
-//            StringBuilder builder = new StringBuilder();
             if (firstName.length() == 0 || lastName.length() == 0 || userId.length() == 0
                     || password.length() == 0 || cellPhoneNumber.length() == 0 || emailAddress.length() == 0) {
                 if (firstName.length() == 0) {
                     error += "First name\n";
-//                    builder.append("Please enter your first name\n");
                 }
                 if (lastName.length() == 0) {
                     error += "Last name\n";
-//                    builder.append("Please enter your last name\n");
                 }
                 if (userId.length() == 0) {
                     error += "userID\n";
-//                    builder.append("Please enter a userID\n");
                 }
                 if (password.length() == 0) {
                     error += "Password\n";
-//                    builder.append("Please enter a password\n");
                 }
                 if (cellPhoneNumber.length() == 0) {
                     error += "Phone Number\n";
-//                    builder.append("Please enter a valid phone number\n");
                 }
                 if (emailAddress.length() == 0) {
                     error += "Email Address\n";
-//                    builder.append("Please enter a valid email address");
                 }
                 LoginRegisterErrorDialogFragment fragment = new LoginRegisterErrorDialogFragment();
                 Bundle bundle = new Bundle();

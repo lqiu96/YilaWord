@@ -17,12 +17,12 @@ import java.util.ArrayList;
  * Created by Lawrence on 6/11/2015.
  */
 public class WordMeaningAdapter extends RecyclerView.Adapter<WordMeaningAdapter.WordMeaningHolder> {
-    private VocabWord vocabWord;
-    private ArrayList<PartOfSpeech> partOfSpeeches;
+    private VocabWord mVocabWord;
+    private ArrayList<PartOfSpeech> mPartOfSpeeches;
 
-    public WordMeaningAdapter(VocabWord vocabWord) {
-        this.vocabWord = vocabWord;
-        partOfSpeeches = vocabWord.getPartOfSpeeches(); //List of Parts of Speeches: Nouns, Verbs, etc..
+    public WordMeaningAdapter(VocabWord mVocabWord) {
+        this.mVocabWord = mVocabWord;
+        mPartOfSpeeches = mVocabWord.getPartOfSpeeches(); //List of Parts of Speeches: Nouns, Verbs, etc..
     }                                                   //Could be 1, could be 4
 
     public static class WordMeaningHolder extends RecyclerView.ViewHolder {
@@ -49,7 +49,7 @@ public class WordMeaningAdapter extends RecyclerView.Adapter<WordMeaningAdapter.
     @Override
     public void onBindViewHolder(WordMeaningHolder holder, int position) {
         //Based on the position of the arraylist-- Noun is usually first, followed by the rest
-        ArrayList<Meaning> meanings = partOfSpeeches.get(position).getMeaningsList();       //ArrayList of Meaning objects
+        ArrayList<Meaning> meanings = mPartOfSpeeches.get(position).getMeaningsList();       //ArrayList of Meaning objects
         /*holder.wordMeaning.setText(meanings.get(position).getMeaning());
         holder.exampleOne.setText(meanings.get(position).getExample());     //This should be correct*/
         //Above needs to be modified so that each tile represents a Part Of speech. Position is incorrectly refered to otherwise
@@ -73,7 +73,7 @@ public class WordMeaningAdapter extends RecyclerView.Adapter<WordMeaningAdapter.
      */
     @Override
     public int getItemCount() {
-        return partOfSpeeches.size();
+        return mPartOfSpeeches.size();
     }
 
     @Override

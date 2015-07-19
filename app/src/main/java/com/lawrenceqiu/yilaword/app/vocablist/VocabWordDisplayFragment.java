@@ -1,7 +1,6 @@
 package com.lawrenceqiu.yilaword.app.vocablist;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,18 +41,18 @@ import java.util.concurrent.ExecutionException;
  */
 public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
         implements VocabWordAdapter.VocabWordAdapterCallback, WordMeaningFragment.KnownWordCallback {
-    private int position;
-    private Switch knownWordSwitch;
-    private boolean switchOnOff;
-    private List<VocabWord> dailyWords;
-    private List<VocabWord> knownWords;
-    private VocabWordAdapter vocabWordAdapter;
-    private RecyclerView recyclerView;
-    private Button games;
-    private Button review;
-    private SwipeRefreshLayout refreshLayout;
-    private boolean signedIn;
-    private int numWords;
+    private int mPosition;
+    private int mNumWords;
+    private boolean mSwitchOnOff;
+    private boolean mSignedIn;
+    private Switch mKnownWordSwitch;
+    private List<VocabWord> mDailyWords;
+    private List<VocabWord> mKnownWords;
+    private VocabWordAdapter mVocabWordAdapter;
+    private RecyclerView mRecyclerView;
+    private Button mGames;
+    private Button mReview;
+    private SwipeRefreshLayout mRefreshLayout;
     /**
      * Loads up an intent to go the ScrambledWordActivity to play the game
      */
@@ -69,19 +68,20 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
                                 case 0: //Scrambled Word option
                                     Intent loadScrambled = new Intent(getActivity(),
                                             ScrambledWordActivity.class);
-                                    loadScrambled.putExtra("numWords", numWords);
-                                    for (int i = 0; i < numWords; i++) {
-                                        loadScrambled.putExtra("word" + i, dailyWords.get(i));
+                                    loadScrambled.putExtra("NumWords", mNumWords);
+                                    for (int i = 0; i < mNumWords; i++) {
+                                        loadScrambled.putExtra("word" + i, mDailyWords.get(i));
                                     }
                                     startActivity(loadScrambled);
                                     break;
                                 case 1: //Find the word, given the definition
                                     Intent loadMeaning = new Intent(getActivity(),
                                             FindWordActivity.class);
-                                    loadMeaning.putExtra("numWords", numWords);
-                                    for (int i = 0; i < numWords; i++) {
-                                        loadMeaning.putExtra("word" + i, dailyWords.get(i));
+                                    loadMeaning.putExtra("NumWords", mNumWords);
+                                    for (int i = 0; i < mNumWords; i++) {
+                                        loadMeaning.putExtra("word" + i, mDailyWords.get(i));
                                     }
+                                    Log.i("numWords", String.valueOf(mNumWords));
                                     startActivity(loadMeaning);
                                     break;
                                 default:
@@ -108,7 +108,7 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
             new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    switchOnOff = isChecked;
+                    mSwitchOnOff = isChecked;
                     displayWordsBaseOnSwitch();
                 }
             };
@@ -118,14 +118,14 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
                     if (key.equals(Constants.PREFERENCE_LOGIN)) {
-                        signedIn = sharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
-                        numWords = signedIn ? 10 : 5;
-                        knownWords.clear();                 //Don't know if clearing them and redoing dailyWords is good
-                        dailyWords = getWordsList();        //Subject to change
-                        vocabWordAdapter = new VocabWordAdapter(getActivity(), dailyWords, VocabWordDisplayFragment.this);
-                        recyclerView.setAdapter(vocabWordAdapter);
-                        knownWordSwitch.setChecked(false);
-                        switchOnOff = false;
+                        mSignedIn = sharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
+                        mNumWords = mSignedIn ? 10 : 5;
+                        mKnownWords.clear();                 //Don't know if clearing them and redoing mDailyWords is good
+                        mDailyWords = getWordsList();        //Subject to change
+                        mVocabWordAdapter = new VocabWordAdapter(getActivity(), mDailyWords, VocabWordDisplayFragment.this);
+                        mRecyclerView.setAdapter(mVocabWordAdapter);
+                        mKnownWordSwitch.setChecked(false);
+                        mSwitchOnOff = false;
                     }
                 }
             };
@@ -136,12 +136,12 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
             if (newWords) {
                 savePreviousDaysWords();        //Save previous days' words list every time
                 getDailyWordsList();            //App gets new daily words list
-                dailyWords = getWordsList();
-                knownWords = new ArrayList<>();
-                vocabWordAdapter = new VocabWordAdapter(getActivity(), dailyWords, VocabWordDisplayFragment.this);
-                vocabWordAdapter.notifyDataSetChanged();
+                mDailyWords = getWordsList();
+                mKnownWords = new ArrayList<>();
+                mVocabWordAdapter = new VocabWordAdapter(getActivity(), mDailyWords, VocabWordDisplayFragment.this);
+                mVocabWordAdapter.notifyDataSetChanged();
             }
-            refreshLayout.setRefreshing(false);
+            mRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -151,20 +151,20 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
      * Each displayed screen is first sorted
      */
     private void displayWordsBaseOnSwitch() {
-        if (switchOnOff) {
-            knownWords.clear();
-            for (VocabWord vocabWord : dailyWords) {
+        if (mSwitchOnOff) {
+            mKnownWords.clear();
+            for (VocabWord vocabWord : mDailyWords) {
                 if (vocabWord.isKnownWord()) {
-                    knownWords.add(vocabWord);
+                    mKnownWords.add(vocabWord);
                 }
             }
-            sort(knownWords);
-            vocabWordAdapter = new VocabWordAdapter(getActivity(), knownWords, this);
-            recyclerView.setAdapter(vocabWordAdapter);
+            sort(mKnownWords);
+            mVocabWordAdapter = new VocabWordAdapter(getActivity(), mKnownWords, this);
+            mRecyclerView.setAdapter(mVocabWordAdapter);
         } else {
-            sort(dailyWords);
-            vocabWordAdapter = new VocabWordAdapter(getActivity(), dailyWords, this);
-            recyclerView.setAdapter(vocabWordAdapter);
+            sort(mDailyWords);
+            mVocabWordAdapter = new VocabWordAdapter(getActivity(), mDailyWords, this);
+            mRecyclerView.setAdapter(mVocabWordAdapter);
         }
     }
 
@@ -187,11 +187,11 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i("onCreateView", "in VocabWordDisplayFragment");
         View view = inflater.inflate(R.layout.fragment_word_display, null);
-        recyclerView = (RecyclerView) view.findViewById(R.id.vocabWordsList);
-        knownWordSwitch = (Switch) view.findViewById(R.id.knownWordSwitch);
-        games = (Button) view.findViewById(R.id.gamesButton);
-        review = (Button) view.findViewById(R.id.reviewButton);
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.wordsSwipeRefreshLayout);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.vocabWordsList);
+        mKnownWordSwitch = (Switch) view.findViewById(R.id.knownWordSwitch);
+        mGames = (Button) view.findViewById(R.id.gamesButton);
+        mReview = (Button) view.findViewById(R.id.reviewButton);
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.wordsSwipeRefreshLayout);
         return view;
     }
 
@@ -199,44 +199,45 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         Log.i("onActivityCreated", "in VocabWordDisplayFragment");
         super.onActivityCreated(savedInstanceState);
-        position = 0;           //Position of the item selected is initially set to 0
-        switchOnOff = false;    //Initially called to be false
+        mPosition = 0;           //Position of the item selected is initially set to 0
+        mSwitchOnOff = false;    //Initially called to be false
 
         SharedPreferences sharedPreferences = getActivity()
                 .getSharedPreferences(Constants.PREFERENCE_FILE, Context.MODE_PRIVATE);
         sharedPreferences.registerOnSharedPreferenceChangeListener(handlePreferenceChanged);
-        signedIn = sharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
+        mSignedIn = sharedPreferences.getBoolean(Constants.PREFERENCE_LOGIN, false);
 
-        numWords = signedIn ? 10 : 5;
+        mNumWords = mSignedIn ? 10 : 5;
 
         boolean newWords = getWordsFromServer();
         if (newWords) {
             savePreviousDaysWords();        //Save previous days' words list every time
             getDailyWordsList();            //App gets new daily words list
         }
-        dailyWords = getWordsList();
-        knownWords = new ArrayList<>();
-        vocabWordAdapter = new VocabWordAdapter(getActivity(), dailyWords, this);
-        recyclerView.setAdapter(vocabWordAdapter);
 
-        recyclerView.setHasFixedSize(true);
+        mDailyWords = getWordsList();
+        mKnownWords = new ArrayList<>();
+        mVocabWordAdapter = new VocabWordAdapter(getActivity(), mDailyWords, this);
+        mRecyclerView.setAdapter(mVocabWordAdapter);
+
+        mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         //Set click listeners
-        games.setOnClickListener(handleGamesListener);
-        review.setOnClickListener(handleReviewListener);
-        knownWordSwitch.setOnCheckedChangeListener(handleCheckedWordListener);
-        refreshLayout.setOnRefreshListener(handleRefreshListener);
-        refreshLayout.setColorSchemeColors(R.color.refreshOne, R.color.refreshTwo, R.color.refreshThree,
+        mGames.setOnClickListener(handleGamesListener);
+        mReview.setOnClickListener(handleReviewListener);
+        mKnownWordSwitch.setOnCheckedChangeListener(handleCheckedWordListener);
+        mRefreshLayout.setOnRefreshListener(handleRefreshListener);
+        mRefreshLayout.setColorSchemeColors(R.color.refreshOne, R.color.refreshTwo, R.color.refreshThree,
                 R.color.refreshFour, R.color.refreshFive);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        vocabWordAdapter.notifyDataSetChanged();    //Checks if word has been checked as a known word
+        mVocabWordAdapter.notifyDataSetChanged();    //Checks if word has been checked as a known word
 
         displayWordsBaseOnSwitch();                 //Called to refresh list when back to view this activity
     }
@@ -254,11 +255,11 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
     public void onStop() {
         Log.i("onStop", "in VocabWordDisplayFragment");
         super.onStop();     //Done because it would overwrite 10 words with 5 words if not signed in
-        if (signedIn) {     //If user is signedIn, all 10 words would be overwritten, saving the IndexOutOfBoundsException
+        if (mSignedIn) {     //If user is SignedIn, all 10 words would be overwritten, saving the IndexOutOfBoundsException
             File file = new File(getActivity().getFilesDir() + File.separator + Constants.DAILY_LIST_FILE);
             try {
                 ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(file));
-                for (VocabWord vocabWord : dailyWords) {
+                for (VocabWord vocabWord : mDailyWords) {
                     stream.writeObject(vocabWord);
                 }
                 stream.close();
@@ -271,7 +272,7 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
     /**
      * Loads two files dealing with Object streams to write objects to a file
      * Every time this function is called, it pulls all the objects stored in the daily list file
-     * and writes them to the review list file
+     * and writes them to the Review list file
      */
     private void savePreviousDaysWords() {
         File dailyList = new File(getActivity().getFilesDir() + File.separator + Constants.DAILY_LIST_FILE);
@@ -467,7 +468,7 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
         ObjectInputStream stream = null;
         try {
             stream = new ObjectInputStream(new FileInputStream(file));
-            for (int i = 0; i < numWords; i++) {
+            for (int i = 0; i < mNumWords; i++) {
                 words.add((VocabWord) stream.readObject());
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -485,24 +486,24 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
     }
 
     /**
-     * Callback method- Gets the position which the user selected to see the vocab word definition
+     * Callback method- Gets the mPosition which the user selected to see the vocab word definition
      *
      * @param position Position selected on the vocab word
      */
     @Override
     public void itemSelected(int position) {
-        this.position = position;
+        this.mPosition = position;
         MainActivity activity = (MainActivity) getActivity();
-        if (switchOnOff) {
-            activity.loadMeaning(knownWords.get(position));
+        if (mSwitchOnOff) {
+            activity.loadMeaning(mKnownWords.get(position));
         } else {
-            activity.loadMeaning(dailyWords.get(position));
+            activity.loadMeaning(mDailyWords.get(position));
         }
     }
 
     /**
-     * Callback method- Sets the word (based on the position) to either be known or not
-     * Because of differences in position, position is based on whether it was it was a knownWord
+     * Callback method- Sets the word (based on the mPosition) to either be known or not
+     * Because of differences in mPosition, mPosition is based on whether it was it was a knownWord
      * or DailyWords list.
      *
      * @param known If word is selected to be known or not
@@ -510,11 +511,28 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
     @Override
     public void isKnownWord(boolean known) {
         Log.i("Is known", String.valueOf(known));
-        if (switchOnOff) {
-            knownWords.get(position).setKnownWord(known);
+        if (mSwitchOnOff) {
+            mKnownWords.get(mPosition).setKnownWord(known);
         } else {
-            dailyWords.get(position).setKnownWord(known);
+            mDailyWords.get(mPosition).setKnownWord(known);
         }
         onStop();       //Save changes to file since the fragment.replace in MainActivity
     }                   //Rewrites a new Dailylist from file
+
+    /**
+     * For Unit Testing..
+     *
+     * @return Button to launch another activity
+    public Button getGames() {
+        return mGames;
+    }
+
+    *//**
+     * For Unit Testing..
+     *
+     * @return Button to launch another activity
+     *//*
+    public Button getReview() {
+        return mReview;
+    }*/
 }

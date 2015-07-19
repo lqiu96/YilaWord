@@ -16,37 +16,37 @@ import java.util.List;
  * Created by Lawrence on 6/10/2015.
  */
 public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.WordHolder> {
-    private Activity activity;
-    private List<VocabWord> wordList;
-    private VocabWordAdapterCallback callback;
+    private Activity mActivity;
+    private List<VocabWord> mWordsList;
+    private VocabWordAdapterCallback mCallback;
 
     public interface VocabWordAdapterCallback {
         void itemSelected(int position);
     }
 
     /**
-     * Adapter's contructor
+     * Adapter's constructor
      *
-     * @param activity Fragment's activity
+     * @param mActivity Fragment's activity
      * @param reviewList List of Vocabwords to display
      * @param fragment Fragment that called it
      */
-    public VocabWordAdapter(Activity activity, List<VocabWord> reviewList, ReviewWordsFragment fragment) {
-        this.activity = activity;
-        this.wordList = reviewList;
-        this.callback = fragment;
+    public VocabWordAdapter(Activity mActivity, List<VocabWord> reviewList, ReviewWordsFragment fragment) {
+        this.mActivity = mActivity;
+        this.mWordsList = reviewList;
+        this.mCallback = fragment;
     }
 
     /**
      * Adapter's constructor
-     *  @param activity Fragment's activity
-     * @param wordList List of Vocabwords to display
+     *  @param mActivity Fragment's activity
+     * @param mWordsList List of Vocabwords to display
      * @param fragment Fragment that called it
      */
-    public VocabWordAdapter(Activity activity, List<VocabWord> wordList, VocabWordDisplayFragment fragment) {
-        this.activity = activity;
-        this.wordList = wordList;
-        this.callback = fragment;
+    public VocabWordAdapter(Activity mActivity, List<VocabWord> mWordsList, VocabWordDisplayFragment fragment) {
+        this.mActivity = mActivity;
+        this.mWordsList = mWordsList;
+        this.mCallback = fragment;
     }
 
     public static class WordHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -83,17 +83,17 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
      */
     public WordHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.word_display_item, viewGroup, false);
-        return new WordHolder(view, callback);
+        return new WordHolder(view, mCallback);
     }
 
     @Override
     public void onBindViewHolder(WordHolder holder, int position) {
-        VocabWord word = wordList.get(position);        //Based on the position on the RecycleView the user pressed
+        VocabWord word = mWordsList.get(position);        //Based on the position on the RecycleView the user pressed
         holder.wordName.setText(word.getWord());
         holder.partOfSpeech.setText(word.getPartOfSpeech());
         int numberDefinitions = word.getNumberMeanings();
         //Based on a pluraity String. Based on the input value, it gives back a certain string
-        holder.numberDefinitions.setText(activity.getResources().getQuantityString(R.plurals.numberMeaningsSet,
+        holder.numberDefinitions.setText(mActivity.getResources().getQuantityString(R.plurals.numberMeaningsSet,
                 numberDefinitions, numberDefinitions));
     }
 
@@ -105,7 +105,7 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
      */
     @Override
     public int getItemCount() {
-        return wordList.size();
+        return mWordsList.size();
     }
 
     @Override

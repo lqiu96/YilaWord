@@ -3,7 +3,6 @@ package com.lawrenceqiu.yilaword.app.scrambledword;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +17,7 @@ import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
  * Created by Lawrence on 6/11/2015.
  */
 public class ScrambledWordActivity extends AppCompatActivity {
-    private ScrambledWordFragment scrambledWordFragment;
+    private ScrambledWordFragment mScrambledWordFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +28,15 @@ public class ScrambledWordActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
-        scrambledWordFragment = (ScrambledWordFragment) getFragmentManager().findFragmentById(R.id.spellingFunFragment);
+        mScrambledWordFragment = (ScrambledWordFragment) getFragmentManager().findFragmentById(R.id.spellingFunFragment);
 
         Bundle bundle = getIntent().getExtras();
-        int size = bundle.getInt("numWords");
+        int size = bundle.getInt("NumWords");
         VocabWord[] words = new VocabWord[size];
         for (int i = 0; i < size; i++) {
             words[i] = ((VocabWord) bundle.getSerializable("word" + i));
         }
-        scrambledWordFragment.setVocabWords(words);
+        mScrambledWordFragment.setVocabWords(words);
     }
 
     @Override
@@ -68,10 +67,10 @@ public class ScrambledWordActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_giveUp:
-                if (!scrambledWordFragment.remainingWords.isEmpty()) {
+                if (!mScrambledWordFragment.remainingWords.isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle(R.string.reveal)
-                            .setMessage("The answer is " + scrambledWordFragment.scrambledAnswer)
+                            .setMessage("The answer is " + mScrambledWordFragment.scrambledAnswer)
                             .setCancelable(false)
                             .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
                                 @Override
@@ -83,7 +82,7 @@ public class ScrambledWordActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.action_info:
-                final String word = scrambledWordFragment.scrambledAnswer;
+                final String word = mScrambledWordFragment.scrambledAnswer;
                 AlertDialog.Builder builder = new  AlertDialog.Builder(this)
                         .setTitle(R.string.readInDictionary)
                         .setItems(R.array.dictionaries, new DialogInterface.OnClickListener() {
@@ -113,9 +112,9 @@ public class ScrambledWordActivity extends AppCompatActivity {
                 break;
         }
         //Both of these move to the next word
-        scrambledWordFragment.setUpWord();
+        mScrambledWordFragment.setUpWord();
         //Progress throughout the game increases, even though user didn't correctly answer
-        scrambledWordFragment.wordProgress.setProgress(scrambledWordFragment.wordProgress.getProgress() + 1);
+        mScrambledWordFragment.wordProgress.setProgress(mScrambledWordFragment.wordProgress.getProgress() + 1);
         return super.onOptionsItemSelected(item);
     }
 }

@@ -3,6 +3,7 @@ package com.lawrenceqiu.yilaword.app.findword;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import com.lawrenceqiu.yilaword.app.R;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
 
@@ -23,13 +24,14 @@ public class FindWordActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {   //No way it is going to be null, only call this is called is by intent
-            int numWords = bundle.getInt("numWords");
+            int numWords = bundle.getInt("NumWords");
             ArrayList<VocabWord> vocabWords = new ArrayList<>();
             for (int i = 0; i < numWords; i++) {
                 vocabWords.add((VocabWord) bundle.getSerializable("word" + i));
             }
             FindWordFragment fragment = (FindWordFragment) getFragmentManager()
                     .findFragmentById(R.id.meaningWordFragment);
+            Log.i("Size in Activity", String.valueOf(vocabWords.size()));
             fragment.setVocabWords(vocabWords);
         }
     }
