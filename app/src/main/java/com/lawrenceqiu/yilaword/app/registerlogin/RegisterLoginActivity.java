@@ -46,6 +46,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
      * FragmentPageAdapter is used because there is always only 2 pages
      */
     private class LoginRegisterAdapter extends FragmentPagerAdapter {
+        private final int NUM_FRAGMENTS = 2;
 
         public LoginRegisterAdapter(FragmentManager supportFragmentManager) {
             super(supportFragmentManager);
@@ -65,7 +66,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return NUM_FRAGMENTS;
         }
 
         /**

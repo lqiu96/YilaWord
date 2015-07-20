@@ -21,18 +21,11 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
     private VocabWordAdapterCallback mCallback;
 
     /**
-     * Call back to get the position selected from the RecyclerView
-     */
-    public interface VocabWordAdapterCallback {
-        void itemSelected(int position);
-    }
-
-    /**
      * Adapter's constructor
      *
-     * @param mActivity Fragment's activity
+     * @param mActivity  Fragment's activity
      * @param reviewList List of Vocabwords to display
-     * @param fragment Fragment that called it
+     * @param fragment   Fragment that called it
      */
     public VocabWordAdapter(Activity mActivity, List<VocabWord> reviewList, ReviewWordsFragment fragment) {
         this.mActivity = mActivity;
@@ -42,9 +35,10 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
 
     /**
      * Adapter's constructor
-     *  @param mActivity Fragment's activity
+     *
+     * @param mActivity  Fragment's activity
      * @param mWordsList List of Vocabwords to display
-     * @param fragment Fragment that called it
+     * @param fragment   Fragment that called it
      */
     public VocabWordAdapter(Activity mActivity, List<VocabWord> mWordsList, VocabWordDisplayFragment fragment) {
         this.mActivity = mActivity;
@@ -52,36 +46,11 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
         this.mCallback = fragment;
     }
 
-    public static class WordHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView wordName;
-        private TextView partOfSpeech;
-        private TextView numberDefinitions;
-        private VocabWordAdapterCallback callback;
-
-        public WordHolder(View itemView, VocabWordAdapterCallback callback) {
-            super(itemView);
-            this.callback = callback;
-            wordName = (TextView) itemView.findViewById(R.id.wordName);
-            partOfSpeech = (TextView) itemView.findViewById(R.id.partOfSpeech);
-            numberDefinitions = (TextView) itemView.findViewById(R.id.numberDefinitions);
-            itemView.setOnClickListener(this);  //Listener to get which position was selected
-        }
-
-        /**
-         * When user clicks on VocabWord's tile, it gives back the position (which index) the tile is
-         * @param v View
-         */
-        @Override
-        public void onClick(View v) {
-            callback.itemSelected(getLayoutPosition());
-        }
-    }
-
     /**
      * Inflates the view and returns a WoldHolder class
      *
      * @param viewGroup viewGroup
-     * @param i Position of the view
+     * @param i         Position of the view
      * @return WorldHolder class
      */
     public WordHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
@@ -94,8 +63,8 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
         VocabWord word = mWordsList.get(position);        //Based on the position on the RecycleView the user pressed
         holder.wordName.setText(word.getWord());
         String speech = word.getPartOfSpeech();
-        if (speech.length() >= 15) {
-            speech = speech.substring(0, 13) + "..";
+        if (speech.length() >= 15) {                    //To to limit the amount of space this takes up
+            speech = speech.substring(0, 13) + "..";    //Might take up a large black if it is 3+ parts of speech
         }
         holder.partOfSpeech.setText(speech);
 //        holder.partOfSpeech.setText(word.getPartOfSpeech());
@@ -119,5 +88,38 @@ public class VocabWordAdapter extends RecyclerView.Adapter<VocabWordAdapter.Word
     @Override
     public void onViewAttachedToWindow(WordHolder holder) {
         super.onViewAttachedToWindow(holder);
+    }
+
+    /**
+     * Call back to get the position selected from the RecyclerView
+     */
+    public interface VocabWordAdapterCallback {
+        void itemSelected(int position);
+    }
+
+    public static class WordHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView wordName;
+        private TextView partOfSpeech;
+        private TextView numberDefinitions;
+        private VocabWordAdapterCallback callback;
+
+        public WordHolder(View itemView, VocabWordAdapterCallback callback) {
+            super(itemView);
+            this.callback = callback;
+            wordName = (TextView) itemView.findViewById(R.id.wordName);
+            partOfSpeech = (TextView) itemView.findViewById(R.id.partOfSpeech);
+            numberDefinitions = (TextView) itemView.findViewById(R.id.numberDefinitions);
+            itemView.setOnClickListener(this);  //Listener to get which position was selected
+        }
+
+        /**
+         * When user clicks on VocabWord's tile, it gives back the position (which index) the tile is
+         *
+         * @param v View
+         */
+        @Override
+        public void onClick(View v) {
+            callback.itemSelected(getLayoutPosition());
+        }
     }
 }

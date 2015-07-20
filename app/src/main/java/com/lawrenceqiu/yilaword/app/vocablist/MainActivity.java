@@ -14,8 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.lawrenceqiu.yilaword.app.Constants;
 import com.lawrenceqiu.yilaword.app.R;
-import com.lawrenceqiu.yilaword.app.registerlogin.RegisterLoginActivity;
 import com.lawrenceqiu.yilaword.app.ReviewWordsFragment;
+import com.lawrenceqiu.yilaword.app.registerlogin.RegisterLoginActivity;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
 import com.lawrenceqiu.yilaword.app.wordmeaning.WordMeaningFragment;
 

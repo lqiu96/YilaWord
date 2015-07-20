@@ -295,7 +295,7 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
             fromDailyList = new ObjectInputStream(new FileInputStream(dailyList));
             toReviewList = new ObjectOutputStream(new FileOutputStream(reviewList));
             toReviewList.writeObject(Constants.FILE_FULL);
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++) {      //10 because you write every object back to the review list
                 VocabWord vocabWord = (VocabWord) fromDailyList.readObject();
                 toReviewList.writeObject(vocabWord);
                 toReviewList.reset();
@@ -344,8 +344,10 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
     }
 
     /**
-     * Loads the Async Http Client to get the daily list from the server
-     * Sets the timeout to 2.5 seconds- If no response after 2.5 seconds, stop
+     * Gets the response from the server by 'GET' method. Does not do this async, as it blocks until
+     * it gets the response back. It then parses through the JSON response to build the words
+     *
+     * Records the date that last accessed the words from the server
      */
     private void getDailyWordsList() {
         HttpGet getWord = new HttpGet("userID");  //Get actual userID
@@ -363,7 +365,7 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
             JsonParser jsonParser = new JsonParser();
             JsonElement jsonElement = jsonParser.parse(jsonResponse); //Must be casted to a String
             JsonArray wordArray = jsonElement.getAsJsonArray();       //List of words stored as an array of 10 elements
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++) {      //10- reads everything in, but may not display everything
                 JsonElement element = wordArray.get(i);
                 JsonObject vocabWord = element.getAsJsonObject();
                 int wordId = vocabWord.get("id").getAsInt();
@@ -524,10 +526,10 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
      *
      * @return Button to launch another activity
     public Button getGames() {
-        return mGames;
+    return mGames;
     }
 
-    *//**
+     *//**
      * For Unit Testing..
      *
      * @return Button to launch another activity

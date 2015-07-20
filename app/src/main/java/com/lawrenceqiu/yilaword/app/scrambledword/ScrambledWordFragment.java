@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ import java.util.Collections;
  * Created by Lawrence on 6/11/2015.
  */
 public class ScrambledWordFragment extends Fragment {
-    //TODO: Fix where pressing 'give up' or 'more information' counts as being correct
+    //TODO: Eventually get around to fixing so it displays the number of correct answers selected
     protected ArrayList<VocabWord> remainingWords;
     protected String scrambledAnswer;
     protected ProgressBar wordProgress;
@@ -32,8 +33,7 @@ public class ScrambledWordFragment extends Fragment {
     private TextView mScrambledWordDefinition;
     private EditText mEnteredWord;
     private Button mSubmitAnswer;
-
-    private int mNumberCorrectAnswers;
+//    private int mNumberCorrectAnswers;
     private int mNumberQuestions;
 
     /**
@@ -67,7 +67,8 @@ public class ScrambledWordFragment extends Fragment {
                 return;
             }
             if (answer.toLowerCase().equals(scrambledAnswer.toLowerCase())) {
-                mNumberCorrectAnswers++;
+//                mNumberCorrectAnswers++;
+//                Log.i("Correct answers", String.valueOf(mNumberCorrectAnswers));
                 Toast.makeText(getActivity(), R.string.correct, Toast.LENGTH_SHORT).show();
                 wordProgress.setProgress(wordProgress.getProgress() + 1);
                 setUpWord();
@@ -100,7 +101,8 @@ public class ScrambledWordFragment extends Fragment {
             mScrambledWordDefinition.setText(savedInstanceState.getString("currentDefinition"));
             wordProgress.setProgress(savedInstanceState.getInt("progress"));
         } else {
-            mNumberCorrectAnswers = 0;
+//            mNumberCorrectAnswers = 0;
+//            Log.i("Correct Answers", String.valueOf(mNumberCorrectAnswers));
             setUpWord();
         }
         wordProgress.setMax(mNumberQuestions);
@@ -169,9 +171,11 @@ public class ScrambledWordFragment extends Fragment {
      * -Progress is set to 0 and game must set up again
      */
     private void noWordsLeft() {
+//        Log.i("Correct Answer", String.valueOf(mNumberCorrectAnswers));
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.empty)
-                .setMessage(getString(R.string.noWordsGiveScore, mNumberCorrectAnswers, mNumberQuestions))
+                .setMessage("No words left")
+//                .setMessage(getString(R.string.noWordsGiveScore, mNumberCorrectAnswers, mNumberQuestions))
                 .setCancelable(false)
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
@@ -185,7 +189,8 @@ public class ScrambledWordFragment extends Fragment {
                 .setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mNumberCorrectAnswers = 0;
+//                        mNumberCorrectAnswers = 0;
+//                        Log.i("Correct answers", String.valueOf(mNumberCorrectAnswers));
                         Collections.addAll(remainingWords, mVocabWords);
                         wordProgress.setProgress(0);
                         if (!mSubmitAnswer.isEnabled()) {
@@ -203,7 +208,7 @@ public class ScrambledWordFragment extends Fragment {
      * It stores the correct answer of the scrambled word
      * It also stores each of the remaining wordsList and definitions to solve
      *
-     * @param outState Bundle to save teh data
+     * @param outState Bundle to save the data
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -220,7 +225,7 @@ public class ScrambledWordFragment extends Fragment {
      * Creates an arraylist of remainingWords, which (for now, is vocabWords).
      * -Is arrayList so words can easily be removed
      *
-     * @param vocabWords
+     * @param vocabWords Array of VocabWords
      */
     public void setVocabWords(VocabWord[] vocabWords) {
         this.mVocabWords = vocabWords;

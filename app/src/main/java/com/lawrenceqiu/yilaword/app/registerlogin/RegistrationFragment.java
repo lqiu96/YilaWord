@@ -17,8 +17,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.lawrenceqiu.yilaword.app.Constants;
 import com.lawrenceqiu.yilaword.app.R;
-import com.lawrenceqiu.yilaword.app.vocablist.MainActivity;
-import com.lawrenceqiu.yilaword.app.vocablist.VocabWordDisplayFragment;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.apache.http.Header;
@@ -89,7 +87,7 @@ public class RegistrationFragment extends Fragment {
             }
             AsyncHttpClient client = new AsyncHttpClient();
             client.get(String.format(Constants.REGISTER_URL, "true", firstName, lastName, userId,
-                    password, cellPhoneNumber, emailAddress),
+                            password, cellPhoneNumber, emailAddress),
                     new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

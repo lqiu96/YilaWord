@@ -27,18 +27,23 @@ public class HttpGet extends AsyncTask<Void, Void, String> {
      */
     @Override
     protected String doInBackground(Void... params) {
-        HttpURLConnection connection;
+        HttpURLConnection connection = null;
         String json = null;
         try {
             URL url = new URL(String.format(Constants.WORD_URL, mUserID));
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
+
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             json = bufferedReader.readLine();
             bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
         return json;
     }

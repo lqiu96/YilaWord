@@ -31,7 +31,6 @@ public class FindWordActivity extends AppCompatActivity {
             }
             FindWordFragment fragment = (FindWordFragment) getFragmentManager()
                     .findFragmentById(R.id.meaningWordFragment);
-            Log.i("Size in Activity", String.valueOf(vocabWords.size()));
             fragment.setVocabWords(vocabWords);
         }
     }

@@ -111,6 +111,11 @@ public class ReviewWordsFragment extends android.support.v4.app.Fragment
         return words;
     }
 
+    /**
+     * Calls back to the MainActivity and uses the callback to load the meaning based on the position
+     *
+     * @param position Position selected. Either from 0-4 (Not signed In) or 0-9 (Signed in)
+     */
     @Override
     public void itemSelected(int position) {
         MainActivity activity = (MainActivity) getActivity();

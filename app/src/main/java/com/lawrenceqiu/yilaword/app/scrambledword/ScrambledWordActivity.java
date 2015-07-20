@@ -28,7 +28,8 @@ public class ScrambledWordActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
-        mScrambledWordFragment = (ScrambledWordFragment) getFragmentManager().findFragmentById(R.id.spellingFunFragment);
+        mScrambledWordFragment = (ScrambledWordFragment) getFragmentManager()
+                .findFragmentById(R.id.spellingFunFragment);
 
         Bundle bundle = getIntent().getExtras();
         int size = bundle.getInt("NumWords");

@@ -17,8 +17,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.lawrenceqiu.yilaword.app.Constants;
 import com.lawrenceqiu.yilaword.app.R;
-import com.lawrenceqiu.yilaword.app.vocablist.MainActivity;
-import com.lawrenceqiu.yilaword.app.vocablist.VocabWordDisplayFragment;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.apache.http.Header;
