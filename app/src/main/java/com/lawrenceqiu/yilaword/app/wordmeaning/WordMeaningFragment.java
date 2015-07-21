@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.lawrenceqiu.yilaword.app.Constants;
 import com.lawrenceqiu.yilaword.app.R;
 import com.lawrenceqiu.yilaword.app.WebDictionaryActivity;
+import com.lawrenceqiu.yilaword.app.vocablist.MainActivity;
 import com.lawrenceqiu.yilaword.app.vocablist.VocabWordDisplayFragment;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
 
@@ -31,7 +32,6 @@ public class WordMeaningFragment extends android.support.v4.app.Fragment {
     private VocabWord vocabWord;
     private CheckBox knownWord;
     private Button dictionary;
-    private KnownWordCallback callback;
 
     @Nullable
     @Override
@@ -67,7 +67,7 @@ public class WordMeaningFragment extends android.support.v4.app.Fragment {
         knownWord.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                callback.isKnownWord(isChecked);
+                ((MainActivity) getActivity()).setKnownWord(isChecked);
             }
         });
 
@@ -102,13 +102,5 @@ public class WordMeaningFragment extends android.support.v4.app.Fragment {
                 builder.create().show();
             }
         });
-    }
-
-    public void setCallback(KnownWordCallback callback) {
-        this.callback = callback;
-    }
-
-    public interface KnownWordCallback {
-        void isKnownWord(boolean known);
     }
 }

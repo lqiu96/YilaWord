@@ -40,7 +40,7 @@ import java.util.concurrent.ExecutionException;
  * Created by Lawrence on 6/10/2015.
  */
 public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
-        implements VocabWordAdapter.VocabWordAdapterCallback, WordMeaningFragment.KnownWordCallback {
+        implements VocabWordAdapter.VocabWordAdapterCallback {
     private int mPosition;
     private int mNumWords;
     private boolean mSwitchOnOff;
@@ -346,7 +346,7 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
     /**
      * Gets the response from the server by 'GET' method. Does not do this async, as it blocks until
      * it gets the response back. It then parses through the JSON response to build the words
-     *
+     * <p/>
      * Records the date that last accessed the words from the server
      */
     private void getDailyWordsList() {
@@ -503,38 +503,12 @@ public class VocabWordDisplayFragment extends android.support.v4.app.Fragment
         }
     }
 
-    /**
-     * Callback method- Sets the word (based on the mPosition) to either be known or not
-     * Because of differences in mPosition, mPosition is based on whether it was it was a knownWord
-     * or DailyWords list.
-     *
-     * @param known If word is selected to be known or not
-     */
-    @Override
-    public void isKnownWord(boolean known) {
-        Log.i("Is known", String.valueOf(known));
+    public void setKnownWord(boolean known) {
         if (mSwitchOnOff) {
             mKnownWords.get(mPosition).setKnownWord(known);
         } else {
             mDailyWords.get(mPosition).setKnownWord(known);
         }
-        onStop();       //Save changes to file since the fragment.replace in MainActivity
-    }                   //Rewrites a new Dailylist from file
-
-    /**
-     * For Unit Testing..
-     *
-     * @return Button to launch another activity
-    public Button getGames() {
-    return mGames;
+        onStop();
     }
-
-     *//**
-     * For Unit Testing..
-     *
-     * @return Button to launch another activity
-     *//*
-    public Button getReview() {
-        return mReview;
-    }*/
 }

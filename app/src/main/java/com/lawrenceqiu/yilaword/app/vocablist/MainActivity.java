@@ -159,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void loadMeaning(VocabWord vocabWord) {
         WordMeaningFragment wordMeaningFragment = new WordMeaningFragment();
-        wordMeaningFragment.setCallback(mVocabWordDisplayFragment);
         Bundle bundle = new Bundle();
         bundle.putSerializable("VocabWord", vocabWord);
         wordMeaningFragment.setArguments(bundle);
@@ -180,5 +179,9 @@ public class MainActivity extends AppCompatActivity {
         ReviewWordsFragment reviewWordsFragment = new ReviewWordsFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.wordDisplayContainer, reviewWordsFragment,
                 "review").addToBackStack(null).commit();
+    }
+
+    public void setKnownWord(boolean known) {
+        mVocabWordDisplayFragment.setKnownWord(known);
     }
 }
