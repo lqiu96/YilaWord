@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,7 @@ public class ScrambledWordFragment extends Fragment {
     private TextView mScrambledWordDefinition;
     private EditText mEnteredWord;
     private Button mSubmitAnswer;
-//    private int mNumberCorrectAnswers;
+    //    private int mNumberCorrectAnswers;
     private int mNumberQuestions;
 
     /**
@@ -66,7 +65,7 @@ public class ScrambledWordFragment extends Fragment {
                 Toast.makeText(getActivity(), R.string.noAnswer, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (answer.toLowerCase().equals(scrambledAnswer.toLowerCase())) {
+            if (answer.trim().toLowerCase().equals(scrambledAnswer.toLowerCase())) {
 //                mNumberCorrectAnswers++;
 //                Log.i("Correct answers", String.valueOf(mNumberCorrectAnswers));
                 Toast.makeText(getActivity(), R.string.correct, Toast.LENGTH_SHORT).show();

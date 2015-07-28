@@ -30,15 +30,11 @@ public class VocabWord implements Serializable {
     }
 
     public String getPartOfSpeech() {
-        StringBuilder builder = new StringBuilder();
+        String partOfSpeech = "";
         for (PartOfSpeech speech : mPartOfSpeeches) {
-            builder.append(" ");
-            builder.append(speech);
-            builder.append(" ");
-            builder.append("|");
+            partOfSpeech += " " + speech + " |";
         }
-        String partsOfSpeechString = builder.toString();
-        return partsOfSpeechString.substring(0, partsOfSpeechString.length() - 1);
+        return partOfSpeech.substring(0, partOfSpeech.length() - 1);
     }
 
     public int getNumberMeanings() {

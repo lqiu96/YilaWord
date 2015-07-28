@@ -29,7 +29,6 @@ import com.lawrenceqiu.yilaword.app.vocabwordstructure.Meaning;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.WordTag;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.partofspeech.*;
-import com.lawrenceqiu.yilaword.app.wordmeaning.WordMeaningFragment;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

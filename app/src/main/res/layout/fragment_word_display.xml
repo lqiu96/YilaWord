@@ -36,13 +36,16 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:textColor="@color/black"/>
+        <Space
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
         <Button
                 android:id="@+id/gamesButton"
                 android:text="@string/games"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center|end"
+                android:gravity="center"
                 style="?android:buttonBarButtonStyle"/>
 
         <Button

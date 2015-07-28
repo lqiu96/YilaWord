@@ -53,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:inputType="textCapSentences"/>
+                android:inputType="textCapSentences|textNoSuggestions"/>
         <Button
                 android:id="@+id/submitAnswer"
                 android:text="@string/submit"

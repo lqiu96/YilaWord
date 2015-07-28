@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -162,14 +161,8 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("VocabWord", vocabWord);
         wordMeaningFragment.setArguments(bundle);
-        if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
-                == Configuration.SCREENLAYOUT_SIZE_LARGE) {     //Large screen only
-            getSupportFragmentManager().beginTransaction().add(R.id.wordMeaningContainer, wordMeaningFragment,
-                    "meaning").addToBackStack(null).commit();
-        } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.wordDisplayContainer, wordMeaningFragment,
-                    "meaning").addToBackStack(null).commit();
-        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.wordDisplayContainer, wordMeaningFragment,
+                "meaning").addToBackStack(null).commit();
     }
 
     /**

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import com.lawrenceqiu.yilaword.app.Constants;
 import com.lawrenceqiu.yilaword.app.R;
 import com.lawrenceqiu.yilaword.app.WebDictionaryActivity;
@@ -69,7 +70,7 @@ public class ScrambledWordActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_giveUp:
                 if (!mScrambledWordFragment.remainingWords.isEmpty()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle(R.string.reveal)
                             .setMessage("The answer is " + mScrambledWordFragment.scrambledAnswer)
                             .setCancelable(false)
@@ -79,12 +80,14 @@ public class ScrambledWordActivity extends AppCompatActivity {
                                     dialog.dismiss();
                                 }
                             });
-                    builder.create().show();
+                    builder.create().show();*/
+                    Toast.makeText(this, "The answer is " + mScrambledWordFragment.scrambledAnswer,
+                            Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.action_info:
                 final String word = mScrambledWordFragment.scrambledAnswer;
-                AlertDialog.Builder builder = new  AlertDialog.Builder(this)
+                AlertDialog.Builder builder = new AlertDialog.Builder(this)
                         .setTitle(R.string.readInDictionary)
                         .setItems(R.array.dictionaries, new DialogInterface.OnClickListener() {
                             @Override

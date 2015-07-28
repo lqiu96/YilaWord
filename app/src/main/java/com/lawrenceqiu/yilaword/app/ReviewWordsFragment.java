@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.lawrenceqiu.yilaword.app.vocablist.MainActivity;
 import com.lawrenceqiu.yilaword.app.vocablist.VocabWordAdapter;
 import com.lawrenceqiu.yilaword.app.vocabwordstructure.VocabWord;
@@ -84,18 +85,8 @@ public class ReviewWordsFragment extends android.support.v4.app.Fragment
                     words.add((VocabWord) stream.readObject());
                 }
             } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.noReviewWords)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                getActivity().getSupportFragmentManager().popBackStack();
-//                                getActivity().finish();
-                            }
-                        });
-                builder.create().show();
+                Toast.makeText(getActivity(), R.string.noReviewWords, Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
