@@ -29,7 +29,6 @@ public class WordMeaningFragment extends android.support.v4.app.Fragment {
     private TextView word;
     private TextView wordPartOfSpeech;
     private RecyclerView recyclerView;
-    private VocabWord vocabWord;
     private CheckBox knownWord;
     private Button dictionary;
 
@@ -53,7 +52,7 @@ public class WordMeaningFragment extends android.support.v4.app.Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Bundle bundle = getArguments();
-        this.vocabWord = (VocabWord) bundle.getSerializable("VocabWord");
+        VocabWord vocabWord = (VocabWord) bundle.getSerializable("VocabWord");
         this.word.setText(vocabWord.getWord());
         this.wordPartOfSpeech.setText(vocabWord.getPartOfSpeech());
 

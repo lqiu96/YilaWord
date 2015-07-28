@@ -33,7 +33,7 @@ public class ReviewWordsFragment extends android.support.v4.app.Fragment
     /**
      * Inflates the layout view and initializes the recyclerView
      *
-     * @param inflater           Inflator
+     * @param inflater           Inflater
      * @param container          View container
      * @param savedInstanceState Bundle of data
      * @return Inflated view

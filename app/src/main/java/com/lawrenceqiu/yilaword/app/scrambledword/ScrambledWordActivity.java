@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -70,19 +71,10 @@ public class ScrambledWordActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_giveUp:
                 if (!mScrambledWordFragment.remainingWords.isEmpty()) {
-                    /*AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle(R.string.reveal)
-                            .setMessage("The answer is " + mScrambledWordFragment.scrambledAnswer)
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    builder.create().show();*/
-                    Toast.makeText(this, "The answer is " + mScrambledWordFragment.scrambledAnswer,
-                            Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(this, "The answer was " + mScrambledWordFragment.scrambledAnswer,
+                            Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP, 0, 150);
+                    toast.show();
                 }
                 break;
             case R.id.action_info:
@@ -104,7 +96,7 @@ public class ScrambledWordActivity extends AppCompatActivity {
                                         url = Constants.MERRIAM_WEBSTER_URL + word;
                                         break;
                                     case 3:
-                                        url = Constants.REFERENCE_DICTIONARY_URL + word + "?s=t";
+                                        url = String.format(Constants.REFERENCE_DICTIONARY_URL, word);
                                         break;
                                 }
                                 Intent loadWeb = new Intent(ScrambledWordActivity.this, WebDictionaryActivity.class);

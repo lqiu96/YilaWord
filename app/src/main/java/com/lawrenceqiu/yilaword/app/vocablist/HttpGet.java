@@ -28,6 +28,7 @@ public class HttpGet extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         HttpURLConnection connection = null;
+        BufferedReader bufferedReader = null;
         String json = null;
         try {
             URL url = new URL(String.format(Constants.WORD_URL, mUserID));
@@ -35,14 +36,20 @@ public class HttpGet extends AsyncTask<Void, Void, String> {
             connection.setRequestMethod("GET");
             connection.connect();
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             json = bufferedReader.readLine();
-            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (connection != null) {
                 connection.disconnect();
+            }
+            try {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return json;

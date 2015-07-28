@@ -146,6 +146,7 @@ public class FindWordFragment extends Fragment {
         super.onStart();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.guessWord)
+//                Must be format because getString() doesn't display the %n as a newline
                 .setMessage(String.format(getString(R.string.findWordInfo)))
                 .setCancelable(false)
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -181,7 +182,6 @@ public class FindWordFragment extends Fragment {
      */
     private void setUpTimer(long initialCountdownTimeMs) {
         mTimer = new CountDownTimer(initialCountdownTimeMs, COUNTDOWN_INTERVAL) {
-
             @Override
             public void onTick(long millisUntilFinished) {
                 mMillisecondsLeft = millisUntilFinished;     //Key track of the milliseconds left
@@ -283,6 +283,9 @@ public class FindWordFragment extends Fragment {
                 .setPositiveButton(R.string.restart, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (mTimer != null) {
+                            mTimer.cancel();        //Sometimes it may not be set at 0
+                        }                           //No words left, timer may not be 0
                         for (VocabWord vocabWord : mWordOptions) {
                             mVocabWords.add(vocabWord);
                         }
